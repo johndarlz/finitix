@@ -11,6 +11,7 @@ const Navbar = () => {
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Products", href: "/products" },
+    { name: "Work With Us", href: "/work-with-us" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -23,13 +24,13 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
             <img 
-              src="/lovable-uploads/cbfaa119-8493-4329-a929-a92007ced9c0.png" 
-              alt="Finitiix Logo" 
-              className="h-8 w-auto"
+              src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" 
+              alt="Finitix Logo" 
+              className="h-12 w-auto"
             />
             <div className="flex flex-col">
               <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                Finitiix
+                Finitix
               </span>
               <span className="text-xs text-muted-foreground -mt-1">begin beyond</span>
             </div>

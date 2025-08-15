@@ -16,10 +16,38 @@ const Contact = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Get in <span className="bg-gradient-primary bg-clip-text text-transparent">Touch</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
               Ready to turn your possibilities into realities? Let's start the conversation. 
               We're here to help you begin beyond.
             </p>
+            
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl md:text-3xl font-bold mb-6">Why Contact Us?</h2>
+              <p className="text-lg text-muted-foreground mb-6">
+                At Finitix, we believe every connection can spark something extraordinary. Whether you have a business idea, 
+                need help turning your dream into reality, want to collaborate, or simply wish to explore new opportunities — 
+                we are here to listen, guide, and make things happen.
+              </p>
+              <p className="text-lg text-muted-foreground mb-8">
+                We're not just a team; we are your partners in innovation. Your questions, ideas, or challenges are the fuel that drives us forward.
+              </p>
+              
+              <div className="bg-gradient-card p-6 rounded-lg mb-8">
+                <h3 className="text-xl font-bold mb-4">Why Finitix?</h3>
+                <p className="text-muted-foreground mb-4">
+                  Because Finitix is not just a company — it's a future you can be a part of. We:
+                </p>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li>• Turn possibilities into realities</li>
+                  <li>• Provide affordable, high-quality solutions for individuals, startups, and businesses</li>
+                  <li>• Believe in giving every idea a fair chance to shine, no matter how small or big</li>
+                  <li>• Support real people solving real problems — with technology, creativity, and strategy</li>
+                </ul>
+                <p className="text-muted-foreground mt-4">
+                  We are here to help you grow, whether you're a dreamer, creator, innovator, or entrepreneur.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -99,7 +127,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold">Email Us</h4>
-                      <p className="text-muted-foreground">hello@finitiix.com</p>
+                      <p className="text-muted-foreground">finitix.official@gmail.com</p>
                       <p className="text-sm text-muted-foreground">We'll respond within 24 hours</p>
                     </div>
                   </div>
@@ -110,8 +138,9 @@ const Contact = () => {
                     </div>
                     <div>
                       <h4 className="font-semibold">Call Us</h4>
-                      <p className="text-muted-foreground">+1 (555) 123-4567</p>
-                      <p className="text-sm text-muted-foreground">Mon-Fri, 9 AM - 6 PM EST</p>
+                      <p className="text-muted-foreground">+91 78158 79588</p>
+                      <p className="text-muted-foreground">+91 95152 71439</p>
+                      <p className="text-sm text-muted-foreground">Mon-Fri, 9 AM - 6 PM IST</p>
                     </div>
                   </div>
                   
@@ -120,9 +149,9 @@ const Contact = () => {
                       <MapPin className="h-6 w-6 text-accent-foreground" />
                     </div>
                     <div>
-                      <h4 className="font-semibold">Visit Us</h4>
-                      <p className="text-muted-foreground">Innovation Hub, Tech City</p>
-                      <p className="text-sm text-muted-foreground">By appointment only</p>
+                      <h4 className="font-semibold">Online Platform</h4>
+                      <p className="text-muted-foreground">Digital-first company</p>
+                      <p className="text-sm text-muted-foreground">Serving clients globally</p>
                     </div>
                   </div>
                   
@@ -141,14 +170,19 @@ const Contact = () => {
 
               <Card className="bg-gradient-primary text-white">
                 <CardHeader>
-                  <CardTitle className="text-xl">Ready to Begin Beyond?</CardTitle>
+                  <CardTitle className="text-xl">💡 Got an idea to solve a real-world problem?</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-white/90 mb-4">
-                    Whether you're an individual with a big idea, a startup looking to scale, 
-                    or a small business ready to innovate, we're here to help turn your 
-                    possibilities into realities.
+                    We want to hear it! Share your vision with us and let's turn it into reality. 
+                    The world needs your innovation — and Finitix will be your launchpad.
                   </p>
+                  <div className="bg-white/10 p-4 rounded-lg mb-4">
+                    <p className="text-white font-medium mb-2">📤 Submit Your Idea Here</p>
+                    <p className="text-white/80 text-sm">
+                      Use our Idea Submission Form to share your innovative concepts with our team.
+                    </p>
+                  </div>
                   <ul className="space-y-2 text-sm text-white/80">
                     <li>• Free initial consultation</li>
                     <li>• Custom solution design</li>

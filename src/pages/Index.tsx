@@ -14,14 +14,14 @@ const Index = () => {
           <div className="text-center">
             <div className="mb-8">
               <img 
-                src="/lovable-uploads/cbfaa119-8493-4329-a929-a92007ced9c0.png" 
-                alt="Finitiix Logo" 
-                className="h-20 w-auto mx-auto mb-6"
+                src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" 
+                alt="Finitix Logo" 
+                className="h-32 w-auto mx-auto mb-6"
               />
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
               <span className="bg-gradient-primary bg-clip-text text-transparent">
-                Finitiix
+                Finitix
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
@@ -51,12 +51,18 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Not Just a Brand. <span className="text-primary">A Revolution.</span>
+              Who We Are
             </h2>
+            <p className="text-lg text-muted-foreground max-w-4xl mx-auto mb-8">
+              At Finitix, we believe that technology should solve real problems — the kind you face every day but rarely find a good solution for.
+              We are a product-first software company dedicated to creating innovative digital solutions that make life simpler, safer, and smarter.
+            </p>
+            <p className="text-lg text-muted-foreground max-w-4xl mx-auto mb-8">
+              Our mission is simple: see a problem, solve it with innovation, and deliver it to the world.
+              From personal safety and healthcare to productivity and entertainment, Finitix builds products designed for real people, real needs, and real impact.
+            </p>
             <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
-              Finitiix challenges the outdated belief that premium solutions must come with premium prices. 
-              We're rewriting the rules—empowering individuals, small businesses, and dreamers to access 
-              the same creative, technical, and strategic firepower that big corporations enjoy.
+              We don't just follow trends — we identify the gaps that matter and create future-ready solutions from scratch. Every product we launch is built with the user at the center and technology as the enabler.
             </p>
           </div>
         </div>
@@ -70,7 +76,7 @@ const Index = () => {
               We Make the Impossible… <span className="text-secondary">Inevitable.</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              At Finitiix, challenges are not roadblocks—they're opportunities. 
+              At Finitix, challenges are not roadblocks—they're opportunities. 
               If someone says it can't be done, that's where we begin.
             </p>
           </div>
@@ -122,6 +128,29 @@ const Index = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Work With Us Section */}
+      <section className="py-20 bg-gradient-subtle">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Your Idea. Your Power. <span className="text-primary">Your Future.</span>
+          </h2>
+          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+            💡 Got an idea to solve a real-world problem? We want to hear it!
+            Share your vision with us and let's turn it into reality. The world needs your innovation — and Finitix will be your launchpad.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button variant="hero" size="xl" asChild>
+              <Link to="/work-with-us">
+                Submit Your Idea <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+            <Button variant="outline" size="xl" asChild>
+              <Link to="/work-with-us">Join the Team</Link>
+            </Button>
           </div>
         </div>
       </section>
