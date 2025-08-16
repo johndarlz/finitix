@@ -1,7 +1,8 @@
-import Layout from "@/components/Layout/Layout";
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import WorkWithUsForm from "@/components/WorkWithUsForm";
 import { 
   GraduationCap, 
   Brain, 
@@ -16,8 +17,22 @@ import {
   Heart,
   Camera
 } from "lucide-react";
+import productsShowcaseImage from "@/assets/products-showcase.jpg";
+import finitixHubIcon from "@/assets/finitixhub-icon.png";
+import lifeosIcon from "@/assets/lifeos-icon.png";
+import safeXIcon from "@/assets/safe-x-icon.png";
+import syncBeatsIcon from "@/assets/syncbeats-icon.png";
+import mediSnapIcon from "@/assets/medisnap-icon.png";
 
 const Products = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<string>("");
+
+  const handleInterest = (productName: string) => {
+    setSelectedProduct(productName);
+    setIsFormOpen(true);
+  };
+
   const products = [
     {
       id: 1,
@@ -25,6 +40,7 @@ const Products = () => {
       tagline: "Learn, Earn, Teach, and Showcase on One Unified Platform",
       description: "An all-in-one micro-freelancing, learning, and collaboration ecosystem where users can learn new skills, earn money via micro-projects, teach courses, and showcase portfolios to attract global clients.",
       icon: <GraduationCap className="h-8 w-8" />,
+      image: finitixHubIcon,
       features: [
         "Skill Bartering: Exchange skills without money",
         "Micro-Freelancing: Short projects with instant payouts", 
@@ -41,6 +57,7 @@ const Products = () => {
       tagline: "Clarity, Control, Consistency in a Distracted World",
       description: "An AI-powered, all-in-one personal operating system that integrates productivity, wellness, financial tracking, lifelong learning, and digital companionship into a single secure ecosystem.",
       icon: <Brain className="h-8 w-8" />,
+      image: lifeosIcon,
       features: [
         "Productivity Suite: AI task management & smart reminders",
         "Wellness Tracker: Mental health & habit building",
@@ -57,6 +74,7 @@ const Products = () => {
       tagline: "Always Listening, Always Protecting",
       description: "India's Most Trusted Emergency Assistant App - a voice-activated emergency safety app designed for instant help in critical situations, especially for women, children, and vulnerable individuals.",
       icon: <Shield className="h-8 w-8" />,
+      image: safeXIcon,
       features: [
         "Voice Command Activation: Trigger emergency calls instantly",
         "Auto Location Sharing: Real-time location to contacts",
@@ -73,6 +91,7 @@ const Products = () => {
       tagline: "One Beat. Many Devices",
       description: "Multi-Device Music & Audio Sync App that lets you sync audio playback across multiple smartphones, turning them into one giant speaker system—perfect for hostels, group travel, or parties.",
       icon: <Music className="h-8 w-8" />,
+      image: syncBeatsIcon,
       features: [
         "Host-Guest System: One phone controls, others join easily",
         "Perfect Sync: Exact time alignment across devices",
@@ -89,6 +108,7 @@ const Products = () => {
       tagline: "Know Your Pills. Take Them Safely",
       description: "Pill Identifier & Medication Safety Coach that uses AI and image recognition to identify pills instantly and provide real-time dosage guidance, safety checks, and medication reminders.",
       icon: <Pill className="h-8 w-8" />,
+      image: mediSnapIcon,
       features: [
         "Pill Identification: Snap picture to identify medication",
         "Safety Alerts: Warns about dangerous interactions",
@@ -102,18 +122,39 @@ const Products = () => {
   ];
 
   return (
-    <Layout>
+    <div>
       {/* Hero Section */}
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Our <span className="bg-gradient-primary bg-clip-text text-transparent">Product Portfolio</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Innovative solutions designed to empower, educate, and protect. 
-              Each product addresses real-world challenges with cutting-edge technology.
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-left">
+              <div className="mb-8 flex items-center justify-center lg:justify-start space-x-4">
+                <img 
+                  src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" 
+                  alt="Finitix Logo" 
+                  className="h-12 w-auto animate-fade-in"
+                />
+                <div className="flex flex-col">
+                  <h1 className="text-4xl md:text-5xl font-bold">
+                    Our <span className="bg-gradient-primary bg-clip-text text-transparent">Product Portfolio</span>
+                  </h1>
+                  <p className="text-lg text-primary font-semibold -mt-1">begin beyond</p>
+                </div>
+              </div>
+              <p className="text-xl text-muted-foreground mb-8">
+                At Finitix, we don't just build products—we craft solutions that transform lives. Each innovation in our portfolio addresses real-world problems with cutting-edge technology, affordable pricing, and user-centric design.
+              </p>
+              <p className="text-lg text-muted-foreground">
+                From emergency safety to life management, learning platforms to entertainment—our products are designed to make life simpler, safer, and smarter.
+              </p>
+            </div>
+            <div className="relative">
+              <img 
+                src={productsShowcaseImage} 
+                alt="Product showcase" 
+                className="rounded-lg shadow-elegant w-full h-auto"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -128,8 +169,12 @@ const Products = () => {
                   {/* Product Info */}
                   <div className="space-y-6">
                     <div className="flex items-center space-x-4">
-                      <div className={`${product.color} p-3 rounded-lg ${product.bgColor} group-hover:scale-110 transition-transform duration-300`}>
-                        {product.icon}
+                      <div className="w-16 h-16 rounded-lg overflow-hidden group-hover:scale-110 transition-transform duration-300">
+                        <img 
+                          src={product.image} 
+                          alt={`${product.name} Icon`}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <div>
                         <h3 className="text-2xl font-bold">{product.name}</h3>
@@ -161,10 +206,20 @@ const Products = () => {
                       <p className="text-sm text-muted-foreground">{product.impact}</p>
                     </div>
 
-                    <Button variant="outline" className="group">
-                      Learn More 
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Button>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Button variant="outline" className="group">
+                        Learn More 
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                      <Button 
+                        variant="hero" 
+                        onClick={() => handleInterest(product.name)}
+                        className="group"
+                      >
+                        Are You Interested?
+                        <Heart className="ml-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                      </Button>
+                    </div>
                   </div>
 
                   {/* Visual/Stats Section */}
@@ -241,7 +296,13 @@ const Products = () => {
           </Button>
         </div>
       </section>
-    </Layout>
+
+      <WorkWithUsForm 
+        isOpen={isFormOpen} 
+        onClose={() => setIsFormOpen(false)} 
+        productName={selectedProduct}
+      />
+    </div>
   );
 };
 

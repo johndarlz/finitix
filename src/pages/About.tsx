@@ -5,7 +5,7 @@ import { Target, Eye, Heart, Lightbulb } from "lucide-react";
 
 const About = () => {
   return (
-    <Layout>
+    <div>
       {/* Hero Section */}
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -259,7 +259,7 @@ const About = () => {
           </p>
         </div>
       </section>
-    </Layout>
+    </div>
   );
 };
 

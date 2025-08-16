@@ -26,7 +26,7 @@ const Navbar = () => {
             <img 
               src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" 
               alt="Finitix Logo" 
-              className="h-12 w-auto"
+              className="h-10 w-auto"
             />
             <div className="flex flex-col">
               <span className="text-xl font-bold bg-gradient-primary bg-clip-text text-transparent">

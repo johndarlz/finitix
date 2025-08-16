@@ -1,29 +1,74 @@
-import Layout from "@/components/Layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { ArrowRight, Zap, Shield, Globe, Users, Rocket, Star } from "lucide-react";
+import { ArrowRight, Zap, Shield, Globe, Users, Rocket, Star, GraduationCap, Brain, Music, Pill } from "lucide-react";
+import finitixHubIcon from "@/assets/finitixhub-icon.png";
+import lifeosIcon from "@/assets/lifeos-icon.png";
+import safeXIcon from "@/assets/safe-x-icon.png";
+import syncBeatsIcon from "@/assets/syncbeats-icon.png";
+import mediSnapIcon from "@/assets/medisnap-icon.png";
 
 const Index = () => {
+  const products = [
+    {
+      id: 1,
+      name: "FINITIXHUB",
+      description: "Learn, earn, teach, and showcase on one unified platform",
+      icon: finitixHubIcon,
+      link: "/products#finitixhub"
+    },
+    {
+      id: 2,
+      name: "LifeosFinitiix",
+      description: "AI-powered personal operating system for life management",
+      icon: lifeosIcon,
+      link: "/products#lifeos"
+    },
+    {
+      id: 3,
+      name: "SAFE-X",
+      description: "Emergency safety app that's always listening, always protecting",
+      icon: safeXIcon,
+      link: "/products#safe-x"
+    },
+    {
+      id: 4,
+      name: "SyncBeats",
+      description: "Multi-device music sync for shared audio experiences",
+      icon: syncBeatsIcon,
+      link: "/products#syncbeats"
+    },
+    {
+      id: 5,
+      name: "MediSnap+",
+      description: "Pill identifier and medication safety coach",
+      icon: mediSnapIcon,
+      link: "/products#medisnap"
+    }
+  ];
+
   return (
-    <Layout>
+    <div>
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
           <div className="text-center">
-            <div className="mb-8">
+            <div className="mb-8 flex items-center justify-center space-x-4">
               <img 
                 src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" 
                 alt="Finitix Logo" 
-                className="h-32 w-auto mx-auto mb-6"
+                className="h-16 w-auto animate-fade-in"
               />
+              <div className="flex flex-col">
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
+                  <span className="bg-gradient-primary bg-clip-text text-transparent">
+                    Finitix
+                  </span>
+                </h1>
+                <p className="text-lg text-primary font-semibold -mt-2">begin beyond</p>
+              </div>
             </div>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-              <span className="bg-gradient-primary bg-clip-text text-transparent">
-                Finitix
-              </span>
-            </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
               We turn possibilities into realities. <br />
               <span className="text-primary font-semibold">Affordable. Innovative. Limitless.</span>
@@ -50,20 +95,61 @@ const Index = () => {
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-fade-in">
               Who We Are
             </h2>
-            <p className="text-lg text-muted-foreground max-w-4xl mx-auto mb-8">
-              At Finitix, we believe that technology should solve real problems — the kind you face every day but rarely find a good solution for.
-              We are a product-first software company dedicated to creating innovative digital solutions that make life simpler, safer, and smarter.
-            </p>
-            <p className="text-lg text-muted-foreground max-w-4xl mx-auto mb-8">
-              Our mission is simple: see a problem, solve it with innovation, and deliver it to the world.
-              From personal safety and healthcare to productivity and entertainment, Finitix builds products designed for real people, real needs, and real impact.
-            </p>
-            <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
-              We don't just follow trends — we identify the gaps that matter and create future-ready solutions from scratch. Every product we launch is built with the user at the center and technology as the enabler.
-            </p>
+            <div className="max-w-4xl mx-auto space-y-6">
+              <Card className="p-6 bg-gradient-card border-primary/20 hover:shadow-elegant transition-all duration-500 transform hover:scale-[1.02] animate-fade-in">
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  At Finitix, we believe that technology should solve real problems — the kind you face every day but rarely find a good solution for.
+                  We are a product-first software company dedicated to creating innovative digital solutions that make life simpler, safer, and smarter.
+                </p>
+              </Card>
+              
+              <Card className="p-6 bg-gradient-card border-secondary/20 hover:shadow-elegant transition-all duration-500 transform hover:scale-[1.02] animate-fade-in">
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  Our mission is simple: see a problem, solve it with innovation, and deliver it to the world.
+                  From personal safety and healthcare to productivity and entertainment, Finitix builds products designed for real people, real needs, and real impact.
+                </p>
+              </Card>
+              
+              <Card className="p-6 bg-gradient-card border-accent/20 hover:shadow-elegant transition-all duration-500 transform hover:scale-[1.02] animate-fade-in">
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  We don't just follow trends — we identify the gaps that matter and create future-ready solutions from scratch. Every product we launch is built with the user at the center and technology as the enabler.
+                </p>
+              </Card>
+            </div>
+          </div>
+          
+          {/* Products Showcase */}
+          <div className="mt-16">
+            <h3 className="text-2xl font-bold text-center mb-12">Our Innovation Portfolio</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {products.map((product, index) => (
+                <Card key={product.id} className="group hover:shadow-elegant transition-all duration-500 transform hover:scale-105 bg-gradient-card border-border">
+                  <CardHeader className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 rounded-lg overflow-hidden group-hover:scale-110 transition-transform duration-300">
+                      <img 
+                        src={product.icon} 
+                        alt={`${product.name} Icon`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <CardTitle className="text-lg">{product.name}</CardTitle>
+                    <CardDescription className="text-sm">
+                      {product.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <Button variant="outline" size="sm" asChild className="group">
+                      <Link to={product.link}>
+                        Go Through This <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -132,6 +218,29 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Why Contact Us Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-fade-in">
+              Why Contact Us?
+            </h2>
+            <div className="max-w-4xl mx-auto">
+              <Card className="p-8 bg-gradient-card border-primary/20 hover:shadow-elegant transition-all duration-500 transform hover:scale-[1.02] animate-fade-in">
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                  At Finitix, we believe every connection can spark something extraordinary. Whether you have a business idea, 
+                  need help turning your dream into reality, want to collaborate, or simply wish to explore new opportunities — 
+                  we are here to listen, guide, and make things happen.
+                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">
+                  We're not just a team; we are your partners in innovation. Your questions, ideas, or challenges are the fuel that drives us forward.
+                </p>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Work With Us Section */}
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -171,7 +280,7 @@ const Index = () => {
           </Button>
         </div>
       </section>
-    </Layout>
+    </div>
   );
 };
 

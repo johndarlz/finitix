@@ -1,52 +1,44 @@
-import Layout from "@/components/Layout/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Phone, MapPin, Clock, Send, MessageCircle } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Mail, Phone, MapPin, Send, MessageCircle, Zap, Heart, Shield, ArrowRight, Lightbulb } from "lucide-react";
+import contactTeamImage from "@/assets/contact-team.jpg";
 
 const Contact = () => {
   return (
-    <Layout>
-      {/* Hero Section */}
+    <div>
+      {/* Hero Section with Image */}
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Get in <span className="bg-gradient-primary bg-clip-text text-transparent">Touch</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-              Ready to turn your possibilities into realities? Let's start the conversation. 
-              We're here to help you begin beyond.
-            </p>
-            
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">Why Contact Us?</h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                At Finitix, we believe every connection can spark something extraordinary. Whether you have a business idea, 
-                need help turning your dream into reality, want to collaborate, or simply wish to explore new opportunities — 
-                we are here to listen, guide, and make things happen.
-              </p>
-              <p className="text-lg text-muted-foreground mb-8">
-                We're not just a team; we are your partners in innovation. Your questions, ideas, or challenges are the fuel that drives us forward.
-              </p>
-              
-              <div className="bg-gradient-card p-6 rounded-lg mb-8">
-                <h3 className="text-xl font-bold mb-4">Why Finitix?</h3>
-                <p className="text-muted-foreground mb-4">
-                  Because Finitix is not just a company — it's a future you can be a part of. We:
-                </p>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li>• Turn possibilities into realities</li>
-                  <li>• Provide affordable, high-quality solutions for individuals, startups, and businesses</li>
-                  <li>• Believe in giving every idea a fair chance to shine, no matter how small or big</li>
-                  <li>• Support real people solving real problems — with technology, creativity, and strategy</li>
-                </ul>
-                <p className="text-muted-foreground mt-4">
-                  We are here to help you grow, whether you're a dreamer, creator, innovator, or entrepreneur.
-                </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="text-center lg:text-left">
+              <div className="mb-8 flex items-center justify-center lg:justify-start space-x-4">
+                <img 
+                  src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" 
+                  alt="Finitix Logo" 
+                  className="h-12 w-auto animate-fade-in"
+                />
+                <div className="flex flex-col">
+                  <h1 className="text-4xl md:text-5xl font-bold">
+                    Get in <span className="bg-gradient-primary bg-clip-text text-transparent">Touch</span>
+                  </h1>
+                  <p className="text-lg text-primary font-semibold -mt-1">begin beyond</p>
+                </div>
               </div>
+              <p className="text-xl text-muted-foreground mb-8">
+                Ready to turn your possibilities into realities? Let's start the conversation. 
+                We're here to help you begin beyond.
+              </p>
+            </div>
+            <div className="relative">
+              <img 
+                src={contactTeamImage} 
+                alt="Contact our team" 
+                className="rounded-lg shadow-elegant w-full h-auto"
+              />
             </div>
           </div>
         </div>
@@ -140,7 +132,6 @@ const Contact = () => {
                       <h4 className="font-semibold">Call Us</h4>
                       <p className="text-muted-foreground">+91 78158 79588</p>
                       <p className="text-muted-foreground">+91 95152 71439</p>
-                      <p className="text-sm text-muted-foreground">Mon-Fri, 9 AM - 6 PM IST</p>
                     </div>
                   </div>
                   
@@ -154,45 +145,102 @@ const Contact = () => {
                       <p className="text-sm text-muted-foreground">Serving clients globally</p>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center space-x-4">
-                    <div className="p-3 bg-muted rounded-lg">
-                      <Clock className="h-6 w-6 text-muted-foreground" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold">Business Hours</h4>
-                      <p className="text-muted-foreground">Monday - Friday</p>
-                      <p className="text-sm text-muted-foreground">9:00 AM - 6:00 PM EST</p>
-                    </div>
-                  </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-primary text-white">
+              {/* Why Finitix Section */}
+              <Card className="bg-gradient-card border-primary/20 hover:shadow-elegant transition-all duration-500">
                 <CardHeader>
-                  <CardTitle className="text-xl">💡 Got an idea to solve a real-world problem?</CardTitle>
+                  <CardTitle className="text-xl flex items-center">
+                    <Heart className="h-5 w-5 text-primary mr-2" />
+                    Why Finitix?
+                  </CardTitle>
+                  <CardDescription>
+                    Because Finitix is not just a company — it's a future you can be a part of.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-white/90 mb-4">
-                    We want to hear it! Share your vision with us and let's turn it into reality. 
-                    The world needs your innovation — and Finitix will be your launchpad.
-                  </p>
-                  <div className="bg-white/10 p-4 rounded-lg mb-4">
-                    <p className="text-white font-medium mb-2">📤 Submit Your Idea Here</p>
-                    <p className="text-white/80 text-sm">
-                      Use our Idea Submission Form to share your innovative concepts with our team.
-                    </p>
+                  <div className="space-y-3">
+                    {[
+                      { icon: <Zap className="h-4 w-4" />, text: "Turn possibilities into realities", color: "text-yellow-500" },
+                      { icon: <Shield className="h-4 w-4" />, text: "Provide affordable, high-quality solutions", color: "text-blue-500" },
+                      { icon: <Heart className="h-4 w-4" />, text: "Give every idea a fair chance to shine", color: "text-red-500" },
+                      { icon: <Lightbulb className="h-4 w-4" />, text: "Support real people solving real problems", color: "text-green-500" }
+                    ].map((item, index) => (
+                      <div key={index} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-muted/50 transition-all duration-300 group">
+                        <div className={`${item.color} group-hover:scale-110 transition-transform duration-300`}>
+                          {item.icon}
+                        </div>
+                        <p className="text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                          {item.text}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                  <ul className="space-y-2 text-sm text-white/80">
-                    <li>• Free initial consultation</li>
-                    <li>• Custom solution design</li>
-                    <li>• Affordable pricing plans</li>
-                    <li>• Ongoing support & maintenance</li>
-                  </ul>
+                  <p className="text-sm text-muted-foreground mt-4 italic">
+                    We are here to help you grow, whether you're a dreamer, creator, innovator, or entrepreneur.
+                  </p>
                 </CardContent>
               </Card>
+
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Idea Submission Section */}
+      <section className="py-20 bg-gradient-primary">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Card className="bg-white/10 backdrop-blur-lg border-white/20 text-white max-w-4xl mx-auto">
+            <CardHeader>
+              <CardTitle className="text-3xl font-bold flex items-center justify-center">
+                <Lightbulb className="h-8 w-8 mr-3 text-yellow-300 animate-pulse" />
+                💡 Got an idea to solve a real-world problem?
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <p className="text-xl text-white/90 leading-relaxed">
+                We want to hear it! Share your vision with us and let's turn it into reality. 
+                The world needs your innovation — and Finitix will be your launchpad.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
+                  <h4 className="text-lg font-semibold mb-3 text-white">📤 Submit Your Idea</h4>
+                  <p className="text-white/80 text-sm mb-4">
+                    Use our comprehensive form to share your innovative concepts with our team.
+                  </p>
+                  <Button variant="secondary" size="lg" asChild className="w-full group">
+                    <Link to="/work-with-us">
+                      Idea Submission Form <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+                </div>
+                
+                <div className="bg-white/10 p-6 rounded-lg backdrop-blur-sm">
+                  <h4 className="text-lg font-semibold mb-3 text-white">What You Get</h4>
+                  <ul className="space-y-2 text-sm text-white/80 text-left">
+                    <li className="flex items-center">
+                      <Zap className="h-3 w-3 mr-2 text-yellow-300" />
+                      Free initial consultation
+                    </li>
+                    <li className="flex items-center">
+                      <Shield className="h-3 w-3 mr-2 text-blue-300" />
+                      Custom solution design
+                    </li>
+                    <li className="flex items-center">
+                      <Heart className="h-3 w-3 mr-2 text-red-300" />
+                      Affordable pricing plans
+                    </li>
+                    <li className="flex items-center">
+                      <Lightbulb className="h-3 w-3 mr-2 text-green-300" />
+                      Ongoing support & maintenance
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -241,7 +289,7 @@ const Contact = () => {
           </div>
         </div>
       </section>
-    </Layout>
+    </div>
   );
 };
 

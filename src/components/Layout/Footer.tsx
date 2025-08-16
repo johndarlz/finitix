@@ -11,13 +11,13 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
               <img 
-                src="/lovable-uploads/cbfaa119-8493-4329-a929-a92007ced9c0.png" 
-                alt="Finitiix Logo" 
+                src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" 
+                alt="Finitix Logo" 
                 className="h-10 w-auto"
               />
               <div className="flex flex-col">
                 <span className="text-2xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-                  Finitiix
+                  Finitix
                 </span>
                 <span className="text-sm text-muted-foreground -mt-1">begin beyond</span>
               </div>
@@ -59,6 +59,11 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/work-with-us" className="text-muted-foreground hover:text-primary transition-colors">
+                  Work With Us
+                </Link>
+              </li>
+              <li>
                 <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">
                   Contact
                 </Link>
@@ -69,18 +74,32 @@ const Footer = () => {
           {/* Contact Info */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Mail className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">hello@finitiix.com</span>
+            <div className="space-y-4">
+              <div>
+                <h4 className="font-medium text-foreground mb-2 flex items-center">
+                  <Mail className="h-4 w-4 text-primary mr-2" />
+                  Email Us
+                </h4>
+                <p className="text-muted-foreground">finitix.official@gmail.com</p>
+                <p className="text-xs text-muted-foreground">We'll respond within 24 hours</p>
               </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">+1 (555) 123-4567</span>
+              
+              <div>
+                <h4 className="font-medium text-foreground mb-2 flex items-center">
+                  <Phone className="h-4 w-4 text-primary mr-2" />
+                  Call Us
+                </h4>
+                <p className="text-muted-foreground">+91 78158 79588</p>
+                <p className="text-muted-foreground">+91 95152 71439</p>
               </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="h-4 w-4 text-primary" />
-                <span className="text-muted-foreground">Innovation Hub, Tech City</span>
+              
+              <div>
+                <h4 className="font-medium text-foreground mb-2 flex items-center">
+                  <MapPin className="h-4 w-4 text-primary mr-2" />
+                  Online Platform
+                </h4>
+                <p className="text-muted-foreground">Digital-first company</p>
+                <p className="text-xs text-muted-foreground">Serving clients globally</p>
               </div>
             </div>
           </div>
@@ -89,7 +108,7 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 Finitiix. All rights reserved.
+            © 2024 Finitix. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
             <Link to="/privacy" className="text-sm text-muted-foreground hover:text-primary transition-colors">
