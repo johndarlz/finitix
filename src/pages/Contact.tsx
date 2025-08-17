@@ -15,18 +15,11 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <div className="mb-8 flex items-center justify-center lg:justify-start space-x-4">
-                <img 
-                  src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" 
-                  alt="Finitix Logo" 
-                  className="h-12 w-auto animate-fade-in"
-                />
-                <div className="flex flex-col">
-                  <h1 className="text-4xl md:text-5xl font-bold">
-                    Get in <span className="bg-gradient-primary bg-clip-text text-transparent">Touch</span>
-                  </h1>
-                  <p className="text-lg text-primary font-semibold -mt-1">begin beyond</p>
-                </div>
+              <div className="mb-8">
+                <h1 className="text-4xl md:text-5xl font-bold">
+                  Get in <span className="bg-gradient-primary bg-clip-text text-transparent">Touch</span>
+                </h1>
+                <p className="text-lg text-primary font-semibold -mt-1">begin beyond</p>
               </div>
               <p className="text-xl text-muted-foreground mb-8">
                 Ready to turn your possibilities into realities? Let's start the conversation. 

@@ -69,23 +69,6 @@ const Products = () => {
       bgColor: "bg-purple-50"
     },
     {
-      id: 3,
-      name: "SAFE-X",
-      tagline: "Always Listening, Always Protecting",
-      description: "India's Most Trusted Emergency Assistant App - a voice-activated emergency safety app designed for instant help in critical situations, especially for women, children, and vulnerable individuals.",
-      icon: <Shield className="h-8 w-8" />,
-      image: safeXIcon,
-      features: [
-        "Voice Command Activation: Trigger emergency calls instantly",
-        "Auto Location Sharing: Real-time location to contacts",
-        "Stealth Mode: Silent activation without alerting attackers",
-        "Wearable Integration: Works with smart bands"
-      ],
-      impact: "A life-saving digital companion for personal safety in urban and rural areas",
-      color: "text-red-500",
-      bgColor: "bg-red-50"
-    },
-    {
       id: 4,
       name: "SyncBeats",
       tagline: "One Beat. Many Devices",
@@ -128,18 +111,11 @@ const Products = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-center lg:text-left">
-              <div className="mb-8 flex items-center justify-center lg:justify-start space-x-4">
-                <img 
-                  src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" 
-                  alt="Finitix Logo" 
-                  className="h-12 w-auto animate-fade-in"
-                />
-                <div className="flex flex-col">
-                  <h1 className="text-4xl md:text-5xl font-bold">
-                    Our <span className="bg-gradient-primary bg-clip-text text-transparent">Product Portfolio</span>
-                  </h1>
-                  <p className="text-lg text-primary font-semibold -mt-1">begin beyond</p>
-                </div>
+              <div className="mb-8">
+                <h1 className="text-4xl md:text-5xl font-bold">
+                  Our <span className="bg-gradient-primary bg-clip-text text-transparent">Product Portfolio</span>
+                </h1>
+                <p className="text-lg text-primary font-semibold -mt-1">begin beyond</p>
               </div>
               <p className="text-xl text-muted-foreground mb-8">
                 At Finitix, we don't just build products—we craft solutions that transform lives. Each innovation in our portfolio addresses real-world problems with cutting-edge technology, affordable pricing, and user-centric design.
@@ -263,13 +239,13 @@ const Products = () => {
             </h2>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {[
-              { number: "5", label: "Innovative Products", icon: <Zap className="h-6 w-6" /> },
-              { number: "∞", label: "Possibilities", icon: <Globe className="h-6 w-6" /> },
-              { number: "100%", label: "Affordable", icon: <DollarSign className="h-6 w-6" /> },
-              { number: "24/7", label: "Always Available", icon: <Heart className="h-6 w-6" /> }
-            ].map((stat, index) => (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+             {[
+               { number: "4", label: "Innovative Products", icon: <Zap className="h-6 w-6" /> },
+               { number: "∞", label: "Possibilities", icon: <Globe className="h-6 w-6" /> },
+               { number: "100%", label: "Affordable", icon: <DollarSign className="h-6 w-6" /> },
+               { number: "24/7", label: "Always Available", icon: <Heart className="h-6 w-6" /> }
+             ].map((stat, index) => (
               <Card key={index} className="text-center p-6 group hover:shadow-elegant transition-all duration-300 transform hover:scale-105">
                 <div className="text-primary mb-3 group-hover:scale-110 transition-transform duration-300 flex justify-center">
                   {stat.icon}

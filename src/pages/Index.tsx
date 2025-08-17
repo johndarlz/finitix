@@ -25,13 +25,6 @@ const Index = () => {
       link: "/products#lifeos"
     },
     {
-      id: 3,
-      name: "SAFE-X",
-      description: "Emergency safety app that's always listening, always protecting",
-      icon: safeXIcon,
-      link: "/products#safe-x"
-    },
-    {
       id: 4,
       name: "SyncBeats",
       description: "Multi-device music sync for shared audio experiences",
@@ -54,20 +47,13 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-hero opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
           <div className="text-center">
-            <div className="mb-8 flex items-center justify-center space-x-4">
-              <img 
-                src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" 
-                alt="Finitix Logo" 
-                className="h-16 w-auto animate-fade-in"
-              />
-              <div className="flex flex-col">
-                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
-                  <span className="bg-gradient-primary bg-clip-text text-transparent">
-                    Finitix
-                  </span>
-                </h1>
-                <p className="text-lg text-primary font-semibold -mt-2">begin beyond</p>
-              </div>
+            <div className="mb-8">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
+                <span className="bg-gradient-primary bg-clip-text text-transparent">
+                  Finitix
+                </span>
+              </h1>
+              <p className="text-lg text-primary font-semibold -mt-2">begin beyond</p>
             </div>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
               We turn possibilities into realities. <br />
@@ -94,31 +80,32 @@ const Index = () => {
       {/* Mission Statement */}
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-fade-in">
-              Who We Are
-            </h2>
-            <div className="max-w-4xl mx-auto space-y-6">
-              <Card className="p-6 bg-gradient-card border-primary/20 hover:shadow-elegant transition-all duration-500 transform hover:scale-[1.02] animate-fade-in">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-fade-in">
+                Who We Are
+              </h2>
+              <div className="space-y-6">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  At Finitix, we believe that technology should solve real problems — the kind you face every day but rarely find a good solution for.
-                  We are a product-first software company dedicated to creating innovative digital solutions that make life simpler, safer, and smarter.
+                  Finitix is a product-based software company dedicated to creating innovative digital solutions that tackle real-world problems. 
+                  Finitix focuses on quality, innovation, and impact.
                 </p>
-              </Card>
-              
-              <Card className="p-6 bg-gradient-card border-secondary/20 hover:shadow-elegant transition-all duration-500 transform hover:scale-[1.02] animate-fade-in">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Our mission is simple: see a problem, solve it with innovation, and deliver it to the world.
-                  From personal safety and healthcare to productivity and entertainment, Finitix builds products designed for real people, real needs, and real impact.
+                  We believe that the best products aren't just functional — they inspire, empower, and make life easier.
                 </p>
-              </Card>
-              
-              <Card className="p-6 bg-gradient-card border-accent/20 hover:shadow-elegant transition-all duration-500 transform hover:scale-[1.02] animate-fade-in">
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  We don't just follow trends — we identify the gaps that matter and create future-ready solutions from scratch. Every product we launch is built with the user at the center and technology as the enabler.
-                </p>
-              </Card>
+              </div>
             </div>
+            
+            <Card className="p-8 bg-gradient-card border-primary/20 hover:shadow-elegant transition-all duration-500 transform hover:scale-[1.02] animate-fade-in">
+              <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                <span className="text-primary font-semibold">Empowering individuals and startups</span> by providing affordable, 
+                high-quality services, training, and platforms that help people start, grow, and succeed.
+              </p>
+              <p className="text-lg text-muted-foreground leading-relaxed">
+                We don't just follow trends — we identify the gaps that matter and create future-ready solutions from scratch. 
+                Every product we launch is built with the user at the center and technology as the enabler.
+              </p>
+            </Card>
           </div>
           
           {/* Products Showcase */}

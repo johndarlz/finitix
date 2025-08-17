@@ -1,7 +1,8 @@
-import Layout from "@/components/Layout/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Target, Eye, Heart, Lightbulb } from "lucide-react";
+import aboutTeamImage from "@/assets/about-team-collaboration.jpg";
+import aboutInnovationImage from "@/assets/about-innovation-lab.jpg";
 
 const About = () => {
   return (
@@ -9,14 +10,33 @@ const About = () => {
       {/* Hero Section */}
       <section className="py-20 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              About <span className="bg-gradient-primary bg-clip-text text-transparent">Finitix</span>
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              We are more than just a business name—we're a movement. A promise that no idea is too big, 
-              no dream too far, and no ambition too expensive to bring to life.
-            </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <div className="mb-8 flex items-center justify-start space-x-4">
+                <img 
+                  src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" 
+                  alt="Finitix Logo" 
+                  className="h-12 w-auto animate-fade-in"
+                />
+                <div className="flex flex-col">
+                  <h1 className="text-4xl md:text-5xl font-bold">
+                    About <span className="bg-gradient-primary bg-clip-text text-transparent">Finitix</span>
+                  </h1>
+                  <p className="text-lg text-primary font-semibold -mt-1">begin beyond</p>
+                </div>
+              </div>
+              <p className="text-xl text-muted-foreground">
+                We are more than just a business name—we're a movement. A promise that no idea is too big, 
+                no dream too far, and no ambition too expensive to bring to life.
+              </p>
+            </div>
+            <div className="relative">
+              <img 
+                src={aboutTeamImage} 
+                alt="About Finitix Team" 
+                className="rounded-lg shadow-elegant w-full h-auto"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -24,8 +44,8 @@ const About = () => {
       {/* Mission & Vision */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <Card className="bg-gradient-card shadow-primary">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
+            <Card className="bg-gradient-card shadow-primary hover:shadow-elegant transition-all duration-500 transform hover:scale-[1.02]">
               <CardHeader>
                 <div className="flex items-center space-x-3 mb-4">
                   <Target className="h-8 w-8 text-primary" />
@@ -40,7 +60,15 @@ const About = () => {
               </CardContent>
             </Card>
 
-            <Card className="bg-gradient-card shadow-secondary">
+            <div className="relative">
+              <img 
+                src={aboutInnovationImage} 
+                alt="Innovation Lab" 
+                className="rounded-lg shadow-elegant w-full h-auto"
+              />
+            </div>
+
+            <Card className="bg-gradient-card shadow-secondary hover:shadow-elegant transition-all duration-500 transform hover:scale-[1.02]">
               <CardHeader>
                 <div className="flex items-center space-x-3 mb-4">
                   <Eye className="h-8 w-8 text-secondary" />
