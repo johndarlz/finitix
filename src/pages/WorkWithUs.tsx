@@ -7,6 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Lightbulb, Users, Rocket, Star, Upload, FileText, Code, Palette, Megaphone, Handshake } from "lucide-react";
 import teamCollaboration from "@/assets/team-collaboration.jpg";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 const WorkWithUs = () => {
   return (
@@ -109,37 +111,70 @@ const WorkWithUs = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.currentTarget as HTMLFormElement;
+                const fd = new FormData(form);
+                const name = `${fd.get('firstName') || ''} ${fd.get('lastName') || ''}`.trim();
+                const email = String(fd.get('email') || '');
+                const phone = String(fd.get('phone') || '');
+                const idea_title = String(fd.get('ideaTitle') || '');
+                const problem_statement = String(fd.get('problemStatement') || '');
+                const solution_description = String(fd.get('solution') || '');
+                const target_audience = String(fd.get('targetAudience') || '');
+                const additional_info = String(fd.get('additionalInfo') || '');
+                const { error } = await supabase.from('idea_submissions').insert({
+                  name,
+                  email,
+                  phone: phone || null,
+                  idea_title,
+                  problem_statement,
+                  solution_description,
+                  target_audience: target_audience || null,
+                  additional_info: additional_info || null,
+                });
+                if (error) {
+                  // @ts-ignore
+                  const { toast } = await import("@/hooks/use-toast");
+                  toast.toast({ title: 'Failed to submit idea', description: error.message, variant: 'destructive' });
+                } else {
+                  // @ts-ignore
+                  const { toast } = await import("@/hooks/use-toast");
+                  toast.toast({ title: 'Idea submitted!', description: 'We will review and get back to you.' });
+                  form.reset();
+                }
+              }}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="firstName">First Name</Label>
-                    <Input id="firstName" placeholder="John" />
+                    <Input id="firstName" name="firstName" placeholder="John" />
                   </div>
                   <div>
                     <Label htmlFor="lastName">Last Name</Label>
-                    <Input id="lastName" placeholder="Doe" />
+                    <Input id="lastName" name="lastName" placeholder="Doe" />
                   </div>
                 </div>
                 
                 <div>
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="john@example.com" />
+                  <Input id="email" name="email" type="email" placeholder="john@example.com" />
                 </div>
                 
                 <div>
                   <Label htmlFor="phone">Phone</Label>
-                  <Input id="phone" type="tel" placeholder="+91 98765 43210" />
+                  <Input id="phone" name="phone" type="tel" placeholder="+91 98765 43210" />
                 </div>
                 
                 <div>
                   <Label htmlFor="ideaTitle">Idea Title</Label>
-                  <Input id="ideaTitle" placeholder="Your innovative solution name" />
+                  <Input id="ideaTitle" name="ideaTitle" placeholder="Your innovative solution name" />
                 </div>
                 
                 <div>
                   <Label htmlFor="problemStatement">What Problem Does It Solve?</Label>
                   <Textarea 
-                    id="problemStatement" 
+                    id="problemStatement"
+                    name="problemStatement" 
                     placeholder="Describe the real-world problem your idea addresses..." 
                     rows={3}
                   />
@@ -149,6 +184,7 @@ const WorkWithUs = () => {
                   <Label htmlFor="solution">Your Solution</Label>
                   <Textarea 
                     id="solution" 
+                    name="solution"
                     placeholder="Explain how your idea solves the problem..." 
                     rows={4}
                   />
@@ -156,19 +192,20 @@ const WorkWithUs = () => {
                 
                 <div>
                   <Label htmlFor="targetAudience">Target Audience</Label>
-                  <Input id="targetAudience" placeholder="Who will benefit from your solution?" />
+                  <Input id="targetAudience" name="targetAudience" placeholder="Who will benefit from your solution?" />
                 </div>
                 
                 <div>
                   <Label htmlFor="additionalInfo">Additional Information</Label>
                   <Textarea 
                     id="additionalInfo" 
+                    name="additionalInfo"
                     placeholder="Any prototypes, research, or additional details..." 
                     rows={3}
                   />
                 </div>
                 
-                <Button variant="hero" size="lg" className="w-full">
+                <Button variant="hero" size="lg" className="w-full" type="submit">
                   Submit Your Idea <Rocket className="ml-2 h-4 w-4" />
                 </Button>
               </form>
@@ -242,27 +279,56 @@ const WorkWithUs = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <form className="space-y-6">
+              <form className="space-y-6" onSubmit={async (e) => {
+                e.preventDefault();
+                const form = e.currentTarget as HTMLFormElement;
+                const fd = new FormData(form);
+                const name = String(fd.get('applicantName') || '');
+                const email = String(fd.get('applicantEmail') || '');
+                const position = String(fd.get('position') || '');
+                const experience = String(fd.get('experience') || '');
+                const portfolio_url = String(fd.get('portfolio') || '');
+                const motivation = String(fd.get('motivation') || '');
+                const { error } = await supabase.from('team_applications').insert({
+                  name,
+                  email,
+                  position,
+                  experience,
+                  portfolio_url: portfolio_url || null,
+                  motivation,
+                });
+                if (error) {
+                  // @ts-ignore
+                  const { toast } = await import("@/hooks/use-toast");
+                  toast.toast({ title: 'Failed to apply', description: error.message, variant: 'destructive' });
+                } else {
+                  // @ts-ignore
+                  const { toast } = await import("@/hooks/use-toast");
+                  toast.toast({ title: 'Application submitted!', description: 'We will reach out soon.' });
+                  form.reset();
+                }
+              }}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="applicantName">Full Name</Label>
-                    <Input id="applicantName" placeholder="Your full name" />
+                    <Input id="applicantName" name="applicantName" placeholder="Your full name" />
                   </div>
                   <div>
                     <Label htmlFor="applicantEmail">Email</Label>
-                    <Input id="applicantEmail" type="email" placeholder="your@email.com" />
+                    <Input id="applicantEmail" name="applicantEmail" type="email" placeholder="your@email.com" />
                   </div>
                 </div>
                 
                 <div>
                   <Label htmlFor="position">Position Applying For</Label>
-                  <Input id="position" placeholder="Developer / Designer / Marketer / Other" />
+                  <Input id="position" name="position" placeholder="Developer / Designer / Marketer / Other" />
                 </div>
                 
                 <div>
                   <Label htmlFor="experience">Experience & Skills</Label>
                   <Textarea 
-                    id="experience" 
+                    id="experience"
+                    name="experience" 
                     placeholder="Tell us about your experience, skills, and what makes you unique..." 
                     rows={4}
                   />
@@ -270,19 +336,20 @@ const WorkWithUs = () => {
                 
                 <div>
                   <Label htmlFor="portfolio">Portfolio/Resume Link</Label>
-                  <Input id="portfolio" placeholder="LinkedIn, GitHub, Portfolio website, etc." />
+                  <Input id="portfolio" name="portfolio" placeholder="LinkedIn, GitHub, Portfolio website, etc." />
                 </div>
                 
                 <div>
                   <Label htmlFor="motivation">Why Finitix?</Label>
                   <Textarea 
                     id="motivation" 
+                    name="motivation"
                     placeholder="What excites you about joining Finitix?" 
                     rows={3}
                   />
                 </div>
                 
-                <Button variant="hero" size="lg" className="w-full">
+                <Button variant="hero" size="lg" className="w-full" type="submit">
                   Apply to Join <Users className="ml-2 h-4 w-4" />
                 </Button>
               </form>

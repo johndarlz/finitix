@@ -14,7 +14,40 @@ export type Database = {
   }
   public: {
     Tables: {
-      contact_submissions: {
+      admin_profiles: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          is_active: boolean
+          name: string
+          role: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          is_active?: boolean
+          name: string
+          role?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          role?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      contact_messages: {
         Row: {
           created_at: string
           email: string
@@ -41,42 +74,189 @@ export type Database = {
         }
         Relationships: []
       }
-      work_with_us_submissions: {
+      idea_submissions: {
         Row: {
-          budget_range: string | null
-          company: string | null
+          additional_info: string | null
           created_at: string
           email: string
           id: string
+          idea_title: string
           name: string
           phone: string | null
-          product_name: string | null
-          project_idea: string
-          timeline: string | null
+          problem_statement: string
+          solution_description: string
+          target_audience: string | null
         }
         Insert: {
-          budget_range?: string | null
-          company?: string | null
+          additional_info?: string | null
           created_at?: string
           email: string
           id?: string
+          idea_title: string
           name: string
           phone?: string | null
-          product_name?: string | null
-          project_idea: string
-          timeline?: string | null
+          problem_statement: string
+          solution_description: string
+          target_audience?: string | null
         }
         Update: {
-          budget_range?: string | null
-          company?: string | null
+          additional_info?: string | null
           created_at?: string
           email?: string
           id?: string
+          idea_title?: string
           name?: string
           phone?: string | null
-          product_name?: string | null
-          project_idea?: string
-          timeline?: string | null
+          problem_statement?: string
+          solution_description?: string
+          target_audience?: string | null
+        }
+        Relationships: []
+      }
+      product_interests: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+          product_name: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+          product_name: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+          product_name?: string
+        }
+        Relationships: []
+      }
+      products: {
+        Row: {
+          bg_color: string
+          color: string
+          created_at: string
+          description: string
+          display_order: number | null
+          features: string[]
+          icon_url: string | null
+          id: string
+          impact: string
+          is_active: boolean
+          name: string
+          tagline: string
+          updated_at: string
+        }
+        Insert: {
+          bg_color?: string
+          color?: string
+          created_at?: string
+          description: string
+          display_order?: number | null
+          features?: string[]
+          icon_url?: string | null
+          id?: string
+          impact: string
+          is_active?: boolean
+          name: string
+          tagline: string
+          updated_at?: string
+        }
+        Update: {
+          bg_color?: string
+          color?: string
+          created_at?: string
+          description?: string
+          display_order?: number | null
+          features?: string[]
+          icon_url?: string | null
+          id?: string
+          impact?: string
+          is_active?: boolean
+          name?: string
+          tagline?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      team_applications: {
+        Row: {
+          created_at: string
+          email: string
+          experience: string
+          id: string
+          motivation: string
+          name: string
+          portfolio_url: string | null
+          position: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          experience: string
+          id?: string
+          motivation: string
+          name: string
+          portfolio_url?: string | null
+          position: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          experience?: string
+          id?: string
+          motivation?: string
+          name?: string
+          portfolio_url?: string | null
+          position?: string
+        }
+        Relationships: []
+      }
+      team_members: {
+        Row: {
+          created_at: string
+          description: string
+          display_order: number | null
+          id: string
+          image_url: string | null
+          is_active: boolean
+          name: string
+          position: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name: string
+          position: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          is_active?: boolean
+          name?: string
+          position?: string
+          updated_at?: string
         }
         Relationships: []
       }

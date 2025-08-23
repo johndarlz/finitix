@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Send, MessageCircle, Zap, Heart, Shield, ArrowRight, Lightbulb } from "lucide-react";
 import contactTeamImage from "@/assets/contact-team.jpg";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   return (
@@ -53,43 +55,70 @@ const Contact = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={async (e) => {
+                  e.preventDefault();
+                  const form = e.currentTarget as HTMLFormElement;
+                  const fd = new FormData(form);
+                  const name = `${fd.get('firstName') || ''} ${fd.get('lastName') || ''}`.trim();
+                  const email = String(fd.get('email') || '');
+                  const phone = String(fd.get('phone') || '');
+                  const subject = String(fd.get('subject') || '');
+                  const message = String(fd.get('message') || '');
+                  const fullMessage = subject ? `${subject}\n\n${message}` : message;
+                  const { error } = await supabase.from('contact_messages').insert({
+                    name,
+                    email,
+                    phone: phone || null,
+                    message: fullMessage,
+                  });
+                  if (error) {
+                    // @ts-ignore
+                    const { toast } = await import("@/hooks/use-toast");
+                    toast.toast({ title: 'Failed to send', description: error.message, variant: 'destructive' });
+                  } else {
+                    // @ts-ignore
+                    const { toast } = await import("@/hooks/use-toast");
+                    toast.toast({ title: 'Message sent!', description: 'We will reply within 24 hours.' });
+                    form.reset();
+                  }
+                }}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="firstName">First Name</Label>
-                      <Input id="firstName" placeholder="John" />
+                      <Input id="firstName" name="firstName" placeholder="John" />
                     </div>
                     <div>
                       <Label htmlFor="lastName">Last Name</Label>
-                      <Input id="lastName" placeholder="Doe" />
+                      <Input id="lastName" name="lastName" placeholder="Doe" />
                     </div>
                   </div>
                   
                   <div>
                     <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" placeholder="john@example.com" />
+                    <Input id="email" name="email" type="email" placeholder="john@example.com" />
                   </div>
                   
                   <div>
                     <Label htmlFor="phone">Phone (Optional)</Label>
-                    <Input id="phone" type="tel" placeholder="+1 (555) 123-4567" />
+                    <Input id="phone" name="phone" type="tel" placeholder="+1 (555) 123-4567" />
                   </div>
                   
                   <div>
                     <Label htmlFor="subject">Subject</Label>
-                    <Input id="subject" placeholder="How can we help you?" />
+                    <Input id="subject" name="subject" placeholder="How can we help you?" />
                   </div>
                   
                   <div>
                     <Label htmlFor="message">Message</Label>
                     <Textarea 
                       id="message" 
+                      name="message"
                       placeholder="Tell us about your project or idea..." 
                       rows={5}
                     />
                   </div>
                   
-                  <Button variant="hero" size="lg" className="w-full">
+                  <Button variant="hero" size="lg" className="w-full" type="submit">
                     Send Message <Send className="ml-2 h-4 w-4" />
                   </Button>
                 </form>

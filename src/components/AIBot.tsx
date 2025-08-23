@@ -174,9 +174,7 @@ const AIBot = () => {
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                <Bot className="h-5 w-5" />
-              </div>
+              <img src="/lovable-uploads/cbfaa119-8493-4329-a929-a92007ced9c0.png" alt="Jessi avatar" className="w-8 h-8 rounded-full border border-white/30 shadow" />
               <div>
                 <CardTitle className="text-sm font-semibold">Jessi - AI Assistant</CardTitle>
                 <Badge variant="secondary" className="text-xs bg-white/20 text-white">

@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Zap, Shield, Globe, Users, Rocket, Star, GraduationCap, Brain, Music, Pill } from "lucide-react";
 import finitixHubIcon from "@/assets/finitixhub-icon.png";
 import lifeosIcon from "@/assets/lifeos-icon.png";
-import safeXIcon from "@/assets/safe-x-icon.png";
 import syncBeatsIcon from "@/assets/syncbeats-icon.png";
 import mediSnapIcon from "@/assets/medisnap-icon.png";
+import heroLogo from "/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png";
 
 const Index = () => {
   const products = [
@@ -17,9 +17,6 @@ const Index = () => {
       icon: finitixHubIcon,
       link: "/products#finitixhub"
     },
-    {
-      id: 2,
-      name: "LifeosFinitiix",
       description: "AI-powered personal operating system for life management",
       icon: lifeosIcon,
       link: "/products#lifeos"
@@ -47,6 +44,9 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-hero opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
           <div className="text-center">
+            <div className="mb-4 flex justify-center">
+              <img src={heroLogo} alt="Finitix Logo" className="h-12 w-auto opacity-90" />
+            </div>
             <div className="mb-8">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
                 <span className="bg-gradient-primary bg-clip-text text-transparent">
