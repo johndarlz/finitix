@@ -117,9 +117,6 @@ const Footer = () => {
             <Link to="/terms-of-service" className="text-sm text-muted-foreground hover:text-primary transition-colors">
               Terms of Service
             </Link>
-            <Link to="/admin-auth" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-              Admin Portal
-            </Link>
           </div>
         </div>
       </div>
