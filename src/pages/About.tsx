@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Target, Eye, Heart, Lightbulb } from "lucide-react";
 import aboutTeamImage from "@/assets/about-team-collaboration.jpg";
 import aboutInnovationImage from "@/assets/about-innovation-lab.jpg";
+import { motion } from "framer-motion";
 
 const About = () => {
   return (
@@ -226,53 +227,101 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Founder Section */}
+      <section className="py-20 bg-gradient-to-b from-background to-muted/5">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Meet Our Team</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              The visionary minds behind Finitix, dedicated to turning possibilities into realities.
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Founder of Finitix</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Visionary leadership driving innovation and excellence in every solution we create.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Rahul Sharma",
-                role: "Founder & CEO",
-                image: "/src/assets/founder-portrait.jpg",
-                description: "Visionary entrepreneur with 8+ years in tech innovation. Passionate about solving real-world problems through technology."
-              },
-              {
-                name: "Priya Patel", 
-                role: "Co-Founder & CTO",
-                image: "/src/assets/cofounder-portrait.jpg",
-                description: "Technical architect and product strategist. Expert in scalable solutions and emerging technologies."
-              },
-              {
-                name: "Amit Kumar",
-                role: "Lead Developer",
-                image: "/src/assets/developer-portrait.jpg", 
-                description: "Full-stack developer and AI enthusiast. Builds robust, user-centric applications that scale globally."
-              }
-            ].map((member, index) => (
-              <Card key={index} className="text-center hover:shadow-elegant transition-all duration-300">
-                <CardHeader>
-                  <div className="w-32 h-32 mx-auto rounded-full bg-gradient-primary/10 mb-4 flex items-center justify-center">
-                    <div className="w-24 h-24 rounded-full bg-gradient-primary opacity-20"></div>
+          <motion.div 
+            className="relative bg-gradient-to-br from-primary/5 to-secondary/5 rounded-2xl p-8 md:p-12 overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Decorative elements */}
+            <div className="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 rounded-full mix-blend-multiply filter blur-xl opacity-50"></div>
+            <div className="absolute -bottom-20 -left-20 w-72 h-72 bg-secondary/10 rounded-full mix-blend-multiply filter blur-xl opacity-50"></div>
+            
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+              <div className="lg:col-span-2 space-y-6">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-2">Jnaneswar</h3>
+                  <p className="text-primary font-medium text-lg">Founder & CEO</p>
+                </div>
+                
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    As the visionary behind Finitix, Jnaneswar has always believed in the power of technology to transform lives. 
+                    With a passion for innovation and a commitment to excellence, he leads our team in creating solutions that 
+                    make a real difference in the world.
+                  </p>
+                  <p>
+                    His journey began with a simple yet powerful idea: to build a company that doesn't just follow trends but 
+                    sets them, creating meaningful impact through technology.
+                  </p>
+                </div>
+                
+                <div className="pt-4">
+                  <h4 className="font-semibold mb-3">Vision Behind Finitix</h4>
+                  <div className="space-y-3">
+                    {[
+                      "To create a world where innovative technology is accessible to everyone, not just the privileged few.",
+                      "To build solutions that solve real problems and improve people's lives in meaningful ways.",
+                      "To foster a culture of creativity, excellence, and continuous learning."
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start space-x-3">
+                        <div className="flex-shrink-0 mt-1.5">
+                          <div className="h-2 w-2 rounded-full bg-primary"></div>
+                        </div>
+                        <p className="text-muted-foreground">{item}</p>
+                      </div>
+                    ))}
                   </div>
-                  <CardTitle className="text-xl">{member.name}</CardTitle>
-                  <div className="text-primary font-medium">{member.role}</div>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-muted-foreground">
-                    {member.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <div className="relative z-10 w-48 h-48 md:w-64 md:h-64 mx-auto lg:mx-0 rounded-full overflow-hidden border-4 border-primary/20">
+                  <div className="w-full h-full bg-gradient-to-br from-primary/10 to-secondary/10 flex items-center justify-center">
+                    <svg className="w-24 h-24 text-primary/30" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                  </div>
+                </div>
+                <div className="absolute -bottom-4 -right-4 w-16 h-16 bg-primary/10 rounded-full"></div>
+              </div>
+            </div>
+          </motion.div>
+          
+          {/* Team Philosophy */}
+          <motion.div 
+            className="mt-16 text-center max-w-3xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
+            <h3 className="text-2xl font-bold mb-6">Our Team Philosophy</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              At Finitix, we believe in the power of a small, dedicated team that thinks big. 
+              Each member brings unique skills and perspectives, united by a shared commitment to 
+              excellence and innovation. Together, we're not just building products—we're shaping 
+              the future of technology.
+            </p>
+            <div className="mt-8 flex justify-center space-x-2">
+              {['Innovation', 'Excellence', 'Integrity', 'Impact'].map((value, i) => (
+                <span key={i} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary">
+                  {value}
+                </span>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
