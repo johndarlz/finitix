@@ -46,17 +46,21 @@ const Index = () => {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero opacity-5"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32">
+          {/* Logo below navigation */}
+          <div className="mb-8 flex justify-center">
+            <img src={heroLogo} alt="Finitix Innovation" className="h-16 w-auto opacity-80 hover:opacity-100 transition-opacity" />
+          </div>
+          
           <div className="text-center">
             <div className="mb-4 flex justify-center">
-              <img src={heroLogo} alt="Finitix Logo" className="h-12 w-auto opacity-90" />
-            </div>
-            <div className="mb-8">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
-                <span className="bg-gradient-primary bg-clip-text text-transparent">
-                  Finitix
-                </span>
-              </h1>
-              <p className="text-lg text-primary font-semibold -mt-2">begin beyond</p>
+              <div className="text-center">
+                <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold">
+                  <span className="bg-gradient-primary bg-clip-text text-transparent">
+                    Finitix
+                  </span>
+                </h1>
+                <p className="text-lg text-primary font-semibold -mt-2">begin beyond</p>
+              </div>
             </div>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
               We turn possibilities into realities. <br />

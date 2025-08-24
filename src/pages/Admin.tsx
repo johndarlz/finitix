@@ -1,131 +1,150 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Users,
-  FileText,
-  Calendar,
-  Mail,
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { 
+  Users, 
+  Package, 
+  MessageSquare, 
+  Lightbulb, 
+  UserPlus, 
   Phone,
-  Clock,
-  DollarSign,
-  Target,
-  RefreshCw,
   Plus,
   Trash2,
+  Edit,
+  Shield,
+  LogOut,
+  Settings,
+  BarChart3,
+  FileText
 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
-import { useEffect, useState } from "react";
-
-interface ContactMessage {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string | null;
-  message: string;
-  created_at: string;
-}
-
-interface ProductInterest {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string | null;
-  product_name: string;
-  message?: string | null;
-  created_at: string;
-}
-
-interface IdeaSubmission {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string | null;
-  idea_title: string;
-  problem_statement: string;
-  solution_description: string;
-  target_audience?: string | null;
-  additional_info?: string | null;
-  created_at: string;
-}
-
-interface TeamApplication {
-  id: string;
-  name: string;
-  email: string;
-  position: string;
-  experience: string;
-  portfolio_url?: string | null;
-  motivation: string;
-  created_at: string;
-}
-
-interface Product {
-  id: string;
-  name: string;
-  tagline: string;
-  description: string;
-}
-
-interface TeamMember {
-  id: string;
-  name: string;
-  position: string;
-  description: string;
-}
+import { useNavigate } from "react-router-dom";
+import heroLogo from "/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png";
 
 const Admin = () => {
   const { toast } = useToast();
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const [user, setUser] = useState<any>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // Authentication check
+  useEffect(() => {
+    checkAuth();
+    
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === 'SIGNED_IN' && session) {
+          await checkAdminAccess(session.user);
+        } else if (event === 'SIGNED_OUT') {
+          navigate('/admin-auth');
+        }
+      }
+    );
 
-  const [contact, setContact] = useState<ContactMessage[]>([]);
-  const [interests, setInterests] = useState<ProductInterest[]>([]);
-  const [ideas, setIdeas] = useState<IdeaSubmission[]>([]);
-  const [applications, setApplications] = useState<TeamApplication[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [team, setTeam] = useState<TeamMember[]>([]);
+    return () => subscription.unsubscribe();
+  }, []);
 
+  const checkAuth = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        navigate('/admin-auth');
+        return;
+      }
+      await checkAdminAccess(session.user);
+    } catch (error) {
+      console.error('Auth check error:', error);
+      navigate('/admin-auth');
+    }
+  };
+
+  const checkAdminAccess = async (user: any) => {
+    try {
+      const { data: adminProfile, error } = await supabase
+        .from('admin_profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('is_active', true)
+        .single();
+
+      if (error || !adminProfile) {
+        toast({
+          title: "Access Denied",
+          description: "Admin privileges required",
+          variant: "destructive"
+        });
+        await supabase.auth.signOut();
+        navigate('/admin-auth');
+        return;
+      }
+
+      setUser(user);
+      setIsLoading(false);
+      fetchData();
+    } catch (error) {
+      console.error('Admin access check error:', error);
+      navigate('/admin-auth');
+    }
+  };
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+  };
+
+  // Data states
+  const [contactMessages, setContactMessages] = useState<any[]>([]);
+  const [productInterests, setProductInterests] = useState<any[]>([]);
+  const [ideaSubmissions, setIdeaSubmissions] = useState<any[]>([]);
+  const [teamApplications, setTeamApplications] = useState<any[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  // Fetch all data
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [c, i, d, a, p, t] = await Promise.all([
-        supabase.from("contact_messages").select("*").order("created_at", { ascending: false }),
-        supabase.from("product_interests").select("*").order("created_at", { ascending: false }),
-        supabase.from("idea_submissions").select("*").order("created_at", { ascending: false }),
-        supabase.from("team_applications").select("*").order("created_at", { ascending: false }),
-        supabase.from("products").select("id,name,tagline,description").order("display_order", { ascending: true }),
-        supabase.from("team_members").select("id,name,position,description").order("display_order", { ascending: true }),
+      const [
+        contactRes,
+        interestsRes,
+        ideasRes,
+        applicationsRes,
+        productsRes,
+        teamRes
+      ] = await Promise.all([
+        supabase.from('contact_messages').select('*').order('created_at', { ascending: false }),
+        supabase.from('product_interests').select('*').order('created_at', { ascending: false }),
+        supabase.from('idea_submissions').select('*').order('created_at', { ascending: false }),
+        supabase.from('team_applications').select('*').order('created_at', { ascending: false }),
+        supabase.from('products').select('*').eq('is_active', true).order('display_order'),
+        supabase.from('team_members').select('*').eq('is_active', true).order('display_order')
       ]);
 
-      if (c.error) throw c.error;
-      if (i.error) throw i.error;
-      if (d.error) throw d.error;
-      if (a.error) throw a.error;
-      if (p.error) throw p.error;
-      if (t.error) throw t.error;
-
-      setContact((c.data as ContactMessage[]) || []);
-      setInterests((i.data as ProductInterest[]) || []);
-      setIdeas((d.data as IdeaSubmission[]) || []);
-      setApplications((a.data as TeamApplication[]) || []);
-      setProducts((p.data as Product[]) || []);
-      setTeam((t.data as TeamMember[]) || []);
-    } catch (error: any) {
-      toast({ title: "Error", description: error.message || "Failed to fetch data.", variant: "destructive" });
+      setContactMessages(contactRes.data || []);
+      setProductInterests(interestsRes.data || []);
+      setIdeaSubmissions(ideasRes.data || []);
+      setTeamApplications(applicationsRes.data || []);
+      setProducts(productsRes.data || []);
+      setTeamMembers(teamRes.data || []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load data",
+        variant: "destructive"
+      });
     } finally {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const formatDate = (s: string) => new Date(s).toLocaleString();
 
   // Add/remove product
   const [newProduct, setNewProduct] = useState({ name: "", tagline: "", description: "" });
@@ -172,316 +191,439 @@ const Admin = () => {
     toast({ title: "Team member removed" });
   };
 
-  const stats = [
-    { title: "Contact Messages", value: contact.length, icon: <Mail className="h-6 w-6" />, color: "text-blue-500" },
-    { title: "Product Interests", value: interests.length, icon: <Target className="h-6 w-6" />, color: "text-green-500" },
-    { title: "Idea Submissions", value: ideas.length, icon: <FileText className="h-6 w-6" />, color: "text-purple-500" },
-    { title: "Team Applications", value: applications.length, icon: <Users className="h-6 w-6" />, color: "text-orange-500" },
-  ];
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-subtle flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Verifying admin access...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-subtle">
       {/* Header */}
-      <div className="bg-gradient-primary text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <img src="/lovable-uploads/eefd4944-88fe-498f-8d1e-f4b8b0ee4616.png" alt="Finitix Logo" className="h-12 w-auto" />
+      <header className="bg-white/95 backdrop-blur border-b border-border/40 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center gap-4">
+              <img src={heroLogo} alt="Finitix Logo" className="h-8 w-auto" />
               <div>
-                <h1 className="text-3xl font-bold">Finitix Admin Panel</h1>
-                <p className="text-white/80">Manage products, team, and submissions</p>
+                <h1 className="text-xl font-bold text-primary">Finitix Admin</h1>
+                <p className="text-sm text-muted-foreground">Management Dashboard</p>
               </div>
             </div>
-            <Button onClick={fetchData} variant="secondary" disabled={loading} className="flex items-center space-x-2">
-              <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-              <span>Refresh</span>
-            </Button>
+            
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-sm">
+                <Shield className="h-4 w-4 text-primary" />
+                <span className="text-muted-foreground">Admin</span>
+              </div>
+              <Button variant="outline" size="sm" onClick={handleSignOut}>
+                <LogOut className="h-4 w-4 mr-2" />
+                Sign Out
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats */}
+        {/* Dashboard Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {stats.map((s, i) => (
-            <Card key={i} className="hover:shadow-elegant transition-all duration-300">
-              <CardContent className="p-6">
+          <Card className="bg-gradient-card border-primary/20 hover:shadow-elegant transition-all">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Products</CardTitle>
+              <Package className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{products.length}</div>
+              <p className="text-xs text-muted-foreground">Active products</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-gradient-card border-primary/20 hover:shadow-elegant transition-all">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Team Members</CardTitle>
+              <Users className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{teamMembers.length}</div>
+              <p className="text-xs text-muted-foreground">Active members</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-gradient-card border-primary/20 hover:shadow-elegant transition-all">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Contact Messages</CardTitle>
+              <MessageSquare className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{contactMessages.length}</div>
+              <p className="text-xs text-muted-foreground">New messages</p>
+            </CardContent>
+          </Card>
+          
+          <Card className="bg-gradient-card border-primary/20 hover:shadow-elegant transition-all">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Idea Submissions</CardTitle>
+              <Lightbulb className="h-4 w-4 text-primary" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{ideaSubmissions.length}</div>
+              <p className="text-xs text-muted-foreground">New ideas</p>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Tabs defaultValue="products" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-6 bg-white/50 backdrop-blur">
+            <TabsTrigger value="products" className="flex items-center gap-2">
+              <Package className="h-4 w-4" />
+              Products
+            </TabsTrigger>
+            <TabsTrigger value="team" className="flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              Team
+            </TabsTrigger>
+            <TabsTrigger value="contact" className="flex items-center gap-2">
+              <MessageSquare className="h-4 w-4" />
+              Messages
+            </TabsTrigger>
+            <TabsTrigger value="ideas" className="flex items-center gap-2">
+              <Lightbulb className="h-4 w-4" />
+              Ideas
+            </TabsTrigger>
+            <TabsTrigger value="interests" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Interests
+            </TabsTrigger>
+            <TabsTrigger value="applications" className="flex items-center gap-2">
+              <UserPlus className="h-4 w-4" />
+              Applications
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="products" className="space-y-6">
+            <Card className="bg-gradient-card border-primary/20">
+              <CardHeader>
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-muted-foreground">{s.title}</p>
-                    <p className="text-3xl font-bold text-foreground">{s.value}</p>
+                    <CardTitle className="flex items-center gap-2">
+                      <Package className="h-5 w-5 text-primary" />
+                      Product Management
+                    </CardTitle>
+                    <CardDescription>Add, edit, and manage product portfolio</CardDescription>
                   </div>
-                  <div className={`${s.color}`}>{s.icon}</div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <Input 
+                    placeholder="Product Name" 
+                    value={newProduct.name}
+                    onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
+                  />
+                  <Input 
+                    placeholder="Tagline" 
+                    value={newProduct.tagline}
+                    onChange={(e) => setNewProduct({ ...newProduct, tagline: e.target.value })}
+                  />
+                  <Button onClick={addProduct} className="w-full">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Product
+                  </Button>
+                </div>
+                <Textarea 
+                  placeholder="Product Description" 
+                  value={newProduct.description}
+                  onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
+                  className="mb-4"
+                />
+                
+                <Separator className="my-6" />
+                
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Current Products</h3>
+                  {products.map((product) => (
+                    <Card key={product.id} className="p-4">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-lg">{product.name}</h4>
+                          <p className="text-muted-foreground">{product.tagline}</p>
+                          <p className="text-sm mt-2">{product.description}</p>
+                        </div>
+                        <Button 
+                          variant="destructive" 
+                          size="sm" 
+                          onClick={() => removeProduct(product.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </Card>
+                  ))}
+                  {products.length === 0 && (
+                    <p className="text-muted-foreground text-center py-8">No products yet</p>
+                  )}
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
-
-        {/* Tabs */}
-        <Tabs defaultValue="contact" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="contact">Contact</TabsTrigger>
-            <TabsTrigger value="interests">Interests</TabsTrigger>
-            <TabsTrigger value="ideas">Ideas</TabsTrigger>
-            <TabsTrigger value="applications">Applications</TabsTrigger>
-            <TabsTrigger value="products">Products</TabsTrigger>
-            <TabsTrigger value="team">Team</TabsTrigger>
-          </TabsList>
-
-          {/* Contact */}
-          <TabsContent value="contact">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Mail className="h-5 w-5 text-primary" />
-                  <span>Contact Messages</span>
-                </CardTitle>
-                <CardDescription>General inquiries from the website</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {loading ? (
-                  <div className="flex justify-center py-8"><RefreshCw className="h-6 w-6 animate-spin text-primary" /></div>
-                ) : contact.length === 0 ? (
-                  <p className="text-center text-muted-foreground py-8">No messages yet.</p>
-                ) : (
-                  <div className="space-y-4">
-                    {contact.map((m) => (
-                      <Card key={m.id} className="border-l-4 border-l-blue-500">
-                        <CardContent className="p-6">
-                          <div className="flex items-start justify-between mb-3">
-                            <div>
-                              <h4 className="font-semibold text-lg">{m.name}</h4>
-                              <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                                <span className="flex items-center"><Mail className="h-3 w-3 mr-1" />{m.email}</span>
-                                {m.phone && <span className="flex items-center"><Phone className="h-3 w-3 mr-1" />{m.phone}</span>}
-                              </div>
-                            </div>
-                            <Badge variant="outline" className="flex items-center">
-                              <Clock className="h-3 w-3 mr-1" />{formatDate(m.created_at)}
-                            </Badge>
-                          </div>
-                          <div className="bg-muted/50 p-3 rounded-lg"><p className="text-sm">{m.message}</p></div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
           </TabsContent>
 
-          {/* Interests */}
-          <TabsContent value="interests">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Target className="h-5 w-5 text-primary" />
-                  <span>Product Interests</span>
-                </CardTitle>
-                <CardDescription>Leads from the Products page</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {loading ? (
-                  <div className="flex justify-center py-8"><RefreshCw className="h-6 w-6 animate-spin text-primary" /></div>
-                ) : interests.length === 0 ? (
-                  <p className="text-center text-muted-foreground py-8">No interests yet.</p>
-                ) : (
-                  <div className="space-y-4">
-                    {interests.map((m) => (
-                      <Card key={m.id} className="border-l-4 border-l-green-500">
-                        <CardContent className="p-6">
-                          <div className="flex items-start justify-between mb-3">
-                            <div>
-                              <h4 className="font-semibold text-lg">{m.name}</h4>
-                              <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                                <span className="flex items-center"><Mail className="h-3 w-3 mr-1" />{m.email}</span>
-                                {m.phone && <span className="flex items-center"><Phone className="h-3 w-3 mr-1" />{m.phone}</span>}
-                                <Badge variant="secondary">{m.product_name}</Badge>
-                              </div>
-                            </div>
-                            <Badge variant="outline" className="flex items-center">
-                              <Clock className="h-3 w-3 mr-1" />{formatDate(m.created_at)}
-                            </Badge>
-                          </div>
-                          {m.message && <div className="bg-muted/50 p-3 rounded-lg"><p className="text-sm">{m.message}</p></div>}
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Ideas */}
-          <TabsContent value="ideas">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <FileText className="h-5 w-5 text-primary" />
-                  <span>Idea Submissions</span>
-                </CardTitle>
-                <CardDescription>Ideas shared from Work With Us</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {loading ? (
-                  <div className="flex justify-center py-8"><RefreshCw className="h-6 w-6 animate-spin text-primary" /></div>
-                ) : ideas.length === 0 ? (
-                  <p className="text-center text-muted-foreground py-8">No ideas yet.</p>
-                ) : (
-                  <div className="space-y-4">
-                    {ideas.map((m) => (
-                      <Card key={m.id} className="border-l-4 border-l-purple-500">
-                        <CardContent className="p-6 space-y-3">
-                          <div className="flex items-start justify-between">
-                            <div>
-                              <h4 className="font-semibold text-lg">{m.name}</h4>
-                              <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                                <span className="flex items-center"><Mail className="h-3 w-3 mr-1" />{m.email}</span>
-                                {m.phone && <span className="flex items-center"><Phone className="h-3 w-3 mr-1" />{m.phone}</span>}
-                              </div>
-                            </div>
-                            <Badge variant="outline" className="flex items-center">
-                              <Clock className="h-3 w-3 mr-1" />{formatDate(m.created_at)}
-                            </Badge>
-                          </div>
-                          <div className="bg-muted/50 p-3 rounded-lg">
-                            <p className="text-sm"><strong>Title:</strong> {m.idea_title}</p>
-                            <p className="text-sm mt-2"><strong>Problem:</strong> {m.problem_statement}</p>
-                            <p className="text-sm mt-2"><strong>Solution:</strong> {m.solution_description}</p>
-                            {m.target_audience && <p className="text-sm mt-2"><strong>Audience:</strong> {m.target_audience}</p>}
-                            {m.additional_info && <p className="text-sm mt-2"><strong>Additional:</strong> {m.additional_info}</p>}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Applications */}
-          <TabsContent value="applications">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Users className="h-5 w-5 text-primary" />
-                  <span>Team Applications</span>
-                </CardTitle>
-                <CardDescription>Team join requests</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {loading ? (
-                  <div className="flex justify-center py-8"><RefreshCw className="h-6 w-6 animate-spin text-primary" /></div>
-                ) : applications.length === 0 ? (
-                  <p className="text-center text-muted-foreground py-8">No applications yet.</p>
-                ) : (
-                  <div className="space-y-4">
-                    {applications.map((m) => (
-                      <Card key={m.id} className="border-l-4 border-l-orange-500">
-                        <CardContent className="p-6 space-y-3">
-                          <div className="flex items-start justify-between">
-                            <div>
-                              <h4 className="font-semibold text-lg">{m.name}</h4>
-                              <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                                <span className="flex items-center"><Mail className="h-3 w-3 mr-1" />{m.email}</span>
-                                <Badge variant="secondary">{m.position}</Badge>
-                              </div>
-                            </div>
-                            <Badge variant="outline" className="flex items-center">
-                              <Clock className="h-3 w-3 mr-1" />{formatDate(m.created_at)}
-                            </Badge>
-                          </div>
-                          <div className="bg-muted/50 p-3 rounded-lg">
-                            <p className="text-sm"><strong>Experience:</strong> {m.experience}</p>
-                            {m.portfolio_url && <p className="text-sm mt-2"><strong>Portfolio:</strong> {m.portfolio_url}</p>}
-                            <p className="text-sm mt-2"><strong>Motivation:</strong> {m.motivation}</p>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))}
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Products management */}
-          <TabsContent value="products" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Plus className="h-5 w-5 text-primary" />Add Product</CardTitle>
-                <CardDescription>Manage items in Our Innovation Portfolio</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Input placeholder="Name" value={newProduct.name} onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })} />
-                <Input placeholder="Tagline" value={newProduct.tagline} onChange={(e) => setNewProduct({ ...newProduct, tagline: e.target.value })} />
-                <Textarea placeholder="Description" value={newProduct.description} onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })} />
-                <Button onClick={addProduct}>Add Product</Button>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Products</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {products.length === 0 ? (
-                  <p className="text-muted-foreground">No products yet.</p>
-                ) : (
-                  products.map((p) => (
-                    <div key={p.id} className="flex items-start justify-between border p-3 rounded-lg">
-                      <div>
-                        <div className="font-semibold">{p.name}</div>
-                        <div className="text-sm text-muted-foreground">{p.tagline}</div>
-                      </div>
-                      <Button variant="destructive" size="sm" onClick={() => removeProduct(p.id)}>
-                        <Trash2 className="h-4 w-4 mr-1" /> Remove
-                      </Button>
-                    </div>
-                  ))
-                )}
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Team management */}
           <TabsContent value="team" className="space-y-6">
-            <Card>
+            <Card className="bg-gradient-card border-primary/20">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2"><Plus className="h-5 w-5 text-primary" />Add Team Member</CardTitle>
-                <CardDescription>Update the Meet Our Team section</CardDescription>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="h-5 w-5 text-primary" />
+                  Team Management
+                </CardTitle>
+                <CardDescription>Add and manage team members</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <Input placeholder="Name" value={newMember.name} onChange={(e) => setNewMember({ ...newMember, name: e.target.value })} />
-                <Input placeholder="Position" value={newMember.position} onChange={(e) => setNewMember({ ...newMember, position: e.target.value })} />
-                <Textarea placeholder="Short description" value={newMember.description} onChange={(e) => setNewMember({ ...newMember, description: e.target.value })} />
-                <Button onClick={addMember}>Add Member</Button>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                  <Input 
+                    placeholder="Member Name" 
+                    value={newMember.name}
+                    onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
+                  />
+                  <Input 
+                    placeholder="Position" 
+                    value={newMember.position}
+                    onChange={(e) => setNewMember({ ...newMember, position: e.target.value })}
+                  />
+                  <Button onClick={addMember} className="w-full">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Member
+                  </Button>
+                </div>
+                <Textarea 
+                  placeholder="Member Description" 
+                  value={newMember.description}
+                  onChange={(e) => setNewMember({ ...newMember, description: e.target.value })}
+                  className="mb-4"
+                />
+                
+                <Separator className="my-6" />
+                
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Current Team</h3>
+                  {teamMembers.map((member) => (
+                    <Card key={member.id} className="p-4">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-lg">{member.name}</h4>
+                          <p className="text-muted-foreground">{member.position}</p>
+                          <p className="text-sm mt-2">{member.description}</p>
+                        </div>
+                        <Button 
+                          variant="destructive" 
+                          size="sm" 
+                          onClick={() => removeMember(member.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </Card>
+                  ))}
+                  {teamMembers.length === 0 && (
+                    <p className="text-muted-foreground text-center py-8">No team members yet</p>
+                  )}
+                </div>
               </CardContent>
             </Card>
+          </TabsContent>
 
-            <Card>
+          <TabsContent value="contact" className="space-y-6">
+            <Card className="bg-gradient-card border-primary/20">
               <CardHeader>
-                <CardTitle>Team Members</CardTitle>
+                <CardTitle className="flex items-center gap-2">
+                  <MessageSquare className="h-5 w-5 text-primary" />
+                  Contact Messages
+                </CardTitle>
+                <CardDescription>Messages from the contact form</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
-                {team.length === 0 ? (
-                  <p className="text-muted-foreground">No team members yet.</p>
-                ) : (
-                  team.map((m) => (
-                    <div key={m.id} className="flex items-start justify-between border p-3 rounded-lg">
-                      <div>
-                        <div className="font-semibold">{m.name}</div>
-                        <div className="text-sm text-muted-foreground">{m.position}</div>
+              <CardContent>
+                <div className="space-y-4">
+                  {contactMessages.map((message) => (
+                    <Card key={message.id} className="p-4 bg-background/50">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="font-semibold">{message.name}</h4>
+                          <p className="text-sm text-muted-foreground">{message.email}</p>
+                        </div>
+                        <span className="text-xs text-muted-foreground">
+                          {new Date(message.created_at).toLocaleDateString()}
+                        </span>
                       </div>
-                      <Button variant="destructive" size="sm" onClick={() => removeMember(m.id)}>
-                        <Trash2 className="h-4 w-4 mr-1" /> Remove
-                      </Button>
-                    </div>
-                  ))
-                )}
+                      {message.phone && (
+                        <p className="text-sm text-muted-foreground mb-2">
+                          <Phone className="h-4 w-4 inline mr-1" />
+                          {message.phone}
+                        </p>
+                      )}
+                      <p className="text-sm bg-muted/30 p-2 rounded">{message.message}</p>
+                    </Card>
+                  ))}
+                  {contactMessages.length === 0 && (
+                    <p className="text-muted-foreground text-center py-8">No messages yet</p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="ideas" className="space-y-6">
+            <Card className="bg-gradient-card border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Lightbulb className="h-5 w-5 text-primary" />
+                  Idea Submissions
+                </CardTitle>
+                <CardDescription>Ideas submitted through the work with us form</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {ideaSubmissions.map((idea) => (
+                    <Card key={idea.id} className="p-4 bg-background/50">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="font-semibold">{idea.name}</h4>
+                          <p className="text-sm text-muted-foreground">{idea.email}</p>
+                          <Badge variant="outline" className="mt-1">{idea.idea_title}</Badge>
+                        </div>
+                        <span className="text-xs text-muted-foreground">
+                          {new Date(idea.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                      
+                      <div className="space-y-2 text-sm">
+                        <div>
+                          <span className="font-medium">Problem:</span>
+                          <p className="text-muted-foreground">{idea.problem_statement}</p>
+                        </div>
+                        <div>
+                          <span className="font-medium">Solution:</span>
+                          <p className="text-muted-foreground">{idea.solution_description}</p>
+                        </div>
+                        {idea.target_audience && (
+                          <div>
+                            <span className="font-medium">Target Audience:</span>
+                            <p className="text-muted-foreground">{idea.target_audience}</p>
+                          </div>
+                        )}
+                      </div>
+                    </Card>
+                  ))}
+                  {ideaSubmissions.length === 0 && (
+                    <p className="text-muted-foreground text-center py-8">No ideas yet</p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="interests" className="space-y-6">
+            <Card className="bg-gradient-card border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5 text-primary" />
+                  Product Interest Submissions
+                </CardTitle>
+                <CardDescription>View all product interest inquiries</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {productInterests.map((interest) => (
+                    <Card key={interest.id} className="p-4 bg-background/50">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="font-semibold">{interest.name}</h4>
+                          <p className="text-sm text-muted-foreground">{interest.email}</p>
+                          <Badge variant="outline" className="mt-1">{interest.product_name}</Badge>
+                        </div>
+                        <span className="text-xs text-muted-foreground">
+                          {new Date(interest.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                      {interest.phone && (
+                        <p className="text-sm text-muted-foreground mb-2">
+                          <Phone className="h-4 w-4 inline mr-1" />
+                          {interest.phone}
+                        </p>
+                      )}
+                      {interest.message && (
+                        <p className="text-sm bg-muted/30 p-2 rounded">{interest.message}</p>
+                      )}
+                    </Card>
+                  ))}
+                  {productInterests.length === 0 && (
+                    <p className="text-muted-foreground text-center py-8">No product interests yet</p>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="applications" className="space-y-6">
+            <Card className="bg-gradient-card border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <UserPlus className="h-5 w-5 text-primary" />
+                  Team Applications
+                </CardTitle>
+                <CardDescription>Review job applications</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {teamApplications.map((application) => (
+                    <Card key={application.id} className="p-4 bg-background/50">
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="font-semibold">{application.name}</h4>
+                          <p className="text-sm text-muted-foreground">{application.email}</p>
+                          <Badge variant="secondary" className="mt-1">{application.position}</Badge>
+                        </div>
+                        <span className="text-xs text-muted-foreground">
+                          {new Date(application.created_at).toLocaleDateString()}
+                        </span>
+                      </div>
+                      
+                      <div className="space-y-2 text-sm">
+                        <div>
+                          <span className="font-medium">Experience:</span>
+                          <p className="text-muted-foreground">{application.experience}</p>
+                        </div>
+                        
+                        {application.portfolio_url && (
+                          <div>
+                            <span className="font-medium">Portfolio:</span>
+                            <a 
+                              href={application.portfolio_url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-primary hover:underline ml-1"
+                            >
+                              View Portfolio
+                            </a>
+                          </div>
+                        )}
+                        
+                        <div>
+                          <span className="font-medium">Motivation:</span>
+                          <p className="text-muted-foreground bg-muted/30 p-2 rounded mt-1">
+                            {application.motivation}
+                          </p>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                  {teamApplications.length === 0 && (
+                    <p className="text-muted-foreground text-center py-8">No applications yet</p>
+                  )}
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
