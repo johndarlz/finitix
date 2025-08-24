@@ -1,171 +1,204 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Shield, FileText, Lock, Eye, UserCheck, Database } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Shield, Lock, Server, Mail, Users, ShieldCheck, Database } from "lucide-react";
+import { motion } from "framer-motion";
 
 const PrivacyPolicy = () => {
   return (
-    <div className="min-h-screen bg-gradient-subtle py-20">
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted/5 py-16 md:py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-2 mb-4">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="inline-flex items-center justify-center p-3 rounded-full bg-primary/10 mb-4">
             <Shield className="h-8 w-8 text-primary" />
-            <h1 className="text-4xl font-bold">Privacy Policy</h1>
           </div>
-          <p className="text-lg text-muted-foreground">
-            Your privacy is important to us. This policy explains how we collect, use, and protect your information.
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-4">
+            Privacy Policy
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            At Finitix, we're committed to protecting your privacy and ensuring your personal information is handled with care.
           </p>
-          <p className="text-sm text-muted-foreground mt-2">
-            Last updated: {new Date().toLocaleDateString()}
+          <p className="text-sm text-muted-foreground mt-4">
+            Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
           </p>
-        </div>
+        </motion.div>
 
         <div className="space-y-8">
-          <Card className="bg-gradient-card border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <FileText className="h-5 w-5 text-primary" />
-                Information We Collect
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <h3 className="font-semibold mb-2">Personal Information</h3>
-                <p className="text-muted-foreground">
-                  We collect information you provide directly to us, such as when you create an account, 
-                  contact us, or use our services. This may include:
-                </p>
-                <ul className="list-disc list-inside mt-2 text-muted-foreground space-y-1">
-                  <li>Name and contact information (email, phone number)</li>
-                  <li>Account credentials and profile information</li>
-                  <li>Communications and feedback you send to us</li>
-                  <li>Information submitted through our forms and applications</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="font-semibold mb-2">Automatically Collected Information</h3>
-                <p className="text-muted-foreground">
-                  When you visit our website, we automatically collect certain information about your device and usage:
-                </p>
-                <ul className="list-disc list-inside mt-2 text-muted-foreground space-y-1">
-                  <li>IP address and browser information</li>
-                  <li>Pages visited and time spent on our site</li>
-                  <li>Referring website information</li>
-                  <li>Device characteristics and operating system</li>
-                </ul>
-              </div>
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <Card className="bg-gradient-card border border-border/50 hover:shadow-elegant transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <Server className="h-5 w-5 text-primary" />
+                  </div>
+                  <span>Our Commitment to Your Privacy</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    Finitix is built on trust and transparency. We collect only what's necessary to provide and improve our services, 
+                    and we're committed to being clear about how we handle your information.
+                  </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                    <div className="p-4 bg-background/50 rounded-lg border border-border/30">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-1.5 rounded-md bg-green-100">
+                          <ShieldCheck className="h-4 w-4 text-green-600" />
+                        </div>
+                        <h3 className="font-medium">Data Collection</h3>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        We collect only essential information needed to provide our services, including contact details and usage data.
+                      </p>
+                    </div>
+                    <div className="p-4 bg-background/50 rounded-lg border border-border/30">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="p-1.5 rounded-md bg-blue-100">
+                          <Lock className="h-4 w-4 text-blue-600" />
+                        </div>
+                        <h3 className="font-medium">Data Protection</h3>
+                      </div>
+                      <p className="text-sm text-muted-foreground">
+                        Your data is protected with industry-standard security measures and encryption protocols.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
 
-          <Card className="bg-gradient-card border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Eye className="h-5 w-5 text-primary" />
-                How We Use Your Information
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                We use the information we collect to:
-              </p>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                <li>Provide, maintain, and improve our services</li>
-                <li>Process your requests and respond to your inquiries</li>
-                <li>Send you technical notices and support messages</li>
-                <li>Communicate with you about products, services, and opportunities</li>
-                <li>Monitor and analyze trends and usage patterns</li>
-                <li>Detect, investigate, and prevent fraudulent transactions</li>
-                <li>Comply with legal obligations and protect our rights</li>
-              </ul>
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Card className="bg-gradient-card border border-border/50 hover:shadow-elegant transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <div className="p-2 rounded-lg bg-secondary/10">
+                    <Users className="h-5 w-5 text-secondary" />
+                  </div>
+                  <span>Your Data, Your Control</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <h3 className="font-medium text-foreground">Your Rights</h3>
+                    <p className="text-muted-foreground">
+                      You have the right to access, update, or delete your personal information at any time. 
+                      We provide easy-to-use tools in your account settings to manage your data preferences.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="font-medium text-foreground">Third-Party Services</h3>
+                    <p className="text-muted-foreground">
+                      We work with trusted partners who help us deliver our services. These partners are carefully vetted 
+                      and required to maintain the same level of data protection we do.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
 
-          <Card className="bg-gradient-card border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <UserCheck className="h-5 w-5 text-primary" />
-                Information Sharing
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                We do not sell, trade, or otherwise transfer your personal information to third parties except in the following circumstances:
-              </p>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                <li>With your explicit consent</li>
-                <li>To service providers who assist us in operating our website and conducting business</li>
-                <li>When required by law or to respond to legal process</li>
-                <li>To protect our rights, property, or safety, or that of others</li>
-                <li>In connection with a merger, acquisition, or sale of assets</li>
-              </ul>
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            <Card className="bg-gradient-card border border-border/50 hover:shadow-elegant transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <div className="p-2 rounded-lg bg-amber-500/10">
+                    <Database className="h-5 w-5 text-amber-500" />
+                  </div>
+                  <span>Data Security & Protection</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    We implement robust security measures to protect your personal information from unauthorized access, 
+                    alteration, disclosure, or destruction. Our security practices include:
+                  </p>
+                  <ul className="list-disc list-inside space-y-2 pl-4">
+                    <li>End-to-end encryption for all sensitive data</li>
+                    <li>Regular security audits and vulnerability testing</li>
+                    <li>Strict access controls and authentication requirements</li>
+                    <li>Employee training on data protection best practices</li>
+                    <li>Incident response procedures for potential security breaches</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
 
-          <Card className="bg-gradient-card border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Database className="h-5 w-5 text-primary" />
-                Data Security
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                We implement appropriate security measures to protect your personal information:
-              </p>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                <li>Encryption of data in transit and at rest</li>
-                <li>Regular security assessments and updates</li>
-                <li>Access controls and authentication requirements</li>
-                <li>Employee training on data protection practices</li>
-                <li>Incident response procedures for security breaches</li>
-              </ul>
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
+            <Card className="bg-gradient-card border border-border/50 hover:shadow-elegant transition-shadow">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-3 text-xl">
+                  <div className="p-2 rounded-lg bg-purple-500/10">
+                    <Mail className="h-5 w-5 text-purple-500" />
+                  </div>
+                  <span>Contact Us</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4 text-muted-foreground">
+                  <p>
+                    If you have any questions or concerns about our privacy practices or this policy, 
+                    please don't hesitate to reach out to our privacy team.
+                  </p>
+                  <div className="bg-background/50 rounded-lg p-4 border border-border/30">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-3">
+                        <Mail className="h-5 w-5 text-primary" />
+                        <span>Email: privacy@finitix.com</span>
+                      </div>
+                      <p className="text-sm text-muted-foreground mt-2">
+                        We typically respond to privacy-related inquiries within 2 business days.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
 
-          <Card className="bg-gradient-card border-primary/20">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Lock className="h-5 w-5 text-primary" />
-                Your Rights
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                You have certain rights regarding your personal information:
-              </p>
-              <ul className="list-disc list-inside text-muted-foreground space-y-2">
-                <li>Access and review your personal information</li>
-                <li>Correct inaccurate or incomplete information</li>
-                <li>Request deletion of your personal information</li>
-                <li>Object to processing of your personal information</li>
-                <li>Data portability where technically feasible</li>
-                <li>Withdraw consent where processing is based on consent</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-card border-primary/20">
-            <CardHeader>
-              <CardTitle>Contact Information</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground mb-4">
-                If you have any questions about this Privacy Policy or our data practices, please contact us:
-              </p>
-              <div className="text-muted-foreground space-y-1">
-                <p>Email: privacy@finitix.com</p>
-                <p>Address: Finitix Privacy Office</p>
-                <p>Phone: Contact us through our website</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="text-center pt-8">
+          <motion.div 
+            className="text-center pt-8 border-t border-border/30 mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <p className="text-sm text-muted-foreground">
               This privacy policy may be updated from time to time. We will notify you of any material changes 
               by posting the new policy on this page and updating the "Last updated" date.
             </p>
-          </div>
+            <p className="text-xs text-muted-foreground mt-4">
+              © {new Date().getFullYear()} Finitix. All rights reserved.
+            </p>
+          </motion.div>
         </div>
       </div>
     </div>
