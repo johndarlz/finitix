@@ -134,7 +134,12 @@ const Admin = () => {
       toast({ title: "Missing fields", description: "Fill all product fields." });
       return;
     }
-    const { error } = await supabase.from("products").insert({ ...newProduct, is_active: true });
+    const { error } = await supabase.from("products").insert({ 
+      ...newProduct, 
+      is_active: true, 
+      impact: "Product impact description",
+      features: []
+    });
     if (error) return toast({ title: "Error", description: error.message, variant: "destructive" });
     setNewProduct({ name: "", tagline: "", description: "" });
     fetchData();

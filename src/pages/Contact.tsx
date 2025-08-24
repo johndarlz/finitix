@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
+  const { toast } = useToast();
   return (
     <div>
       {/* Hero Section with Image */}
@@ -72,13 +73,9 @@ const Contact = () => {
                     message: fullMessage,
                   });
                   if (error) {
-                    // @ts-ignore
-                    const { toast } = await import("@/hooks/use-toast");
-                    toast.toast({ title: 'Failed to send', description: error.message, variant: 'destructive' });
+                    toast({ title: 'Failed to send', description: error.message, variant: 'destructive' });
                   } else {
-                    // @ts-ignore
-                    const { toast } = await import("@/hooks/use-toast");
-                    toast.toast({ title: 'Message sent!', description: 'We will reply within 24 hours.' });
+                    toast({ title: 'Message sent!', description: 'We will reply within 24 hours.' });
                     form.reset();
                   }
                 }}>

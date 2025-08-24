@@ -17,6 +17,9 @@ const Index = () => {
       icon: finitixHubIcon,
       link: "/products#finitixhub"
     },
+    {
+      id: 2,
+      name: "LifeosFinitiix",
       description: "AI-powered personal operating system for life management",
       icon: lifeosIcon,
       link: "/products#lifeos"

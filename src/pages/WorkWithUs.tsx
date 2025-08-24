@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
 const WorkWithUs = () => {
+  const { toast } = useToast();
   return (
     <Layout>
       {/* Hero Section */}
@@ -134,13 +135,9 @@ const WorkWithUs = () => {
                   additional_info: additional_info || null,
                 });
                 if (error) {
-                  // @ts-ignore
-                  const { toast } = await import("@/hooks/use-toast");
-                  toast.toast({ title: 'Failed to submit idea', description: error.message, variant: 'destructive' });
+                  toast({ title: 'Failed to submit idea', description: error.message, variant: 'destructive' });
                 } else {
-                  // @ts-ignore
-                  const { toast } = await import("@/hooks/use-toast");
-                  toast.toast({ title: 'Idea submitted!', description: 'We will review and get back to you.' });
+                  toast({ title: 'Idea submitted!', description: 'We will review and get back to you.' });
                   form.reset();
                 }
               }}>
@@ -298,13 +295,9 @@ const WorkWithUs = () => {
                   motivation,
                 });
                 if (error) {
-                  // @ts-ignore
-                  const { toast } = await import("@/hooks/use-toast");
-                  toast.toast({ title: 'Failed to apply', description: error.message, variant: 'destructive' });
+                  toast({ title: 'Failed to apply', description: error.message, variant: 'destructive' });
                 } else {
-                  // @ts-ignore
-                  const { toast } = await import("@/hooks/use-toast");
-                  toast.toast({ title: 'Application submitted!', description: 'We will reach out soon.' });
+                  toast({ title: 'Application submitted!', description: 'We will reach out soon.' });
                   form.reset();
                 }
               }}>
