@@ -40,20 +40,20 @@ const Home = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Side - Text Content */}
             <div className="animate-fade-in">
-              <h1 className="text-6xl md:text-7xl lg:text-8xl font-heading font-bold mb-4 leading-tight">
-                <span className="text-gradient">Finitix</span> - Digital Services Platform
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-4 leading-tight">
+                <span className="text-gradient">Finitix</span>
               </h1>
               
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-8 leading-tight">
-                Expert Web Development Agency & App Development Company
+                Transforming Ideas Into
+                <span className="text-gradient"> Digital Reality</span>
               </h2>
               
               <p className="text-xl text-foreground/80 mb-8 leading-relaxed">
-                Finitix is a friendly <strong>digital services company</strong> specializing in <strong>web development</strong>, 
-                <strong> mobile app development</strong>, <strong>AI software development</strong>, and <strong>MVP development services</strong>. 
-                We help startups, businesses, and entrepreneurs transform ideas into scalable, high-performance digital products. 
-                As a leading <strong>software solutions provider</strong>, we deliver custom software solutions, SaaS platforms, 
-                and AI automation services that drive growth and innovation.
+                We are a product-based software company dedicated to building innovative technology 
+                solutions that solve real-world problems. From startups to enterprises, we turn 
+                visionary ideas into scalable, high-performance digital products that drive growth 
+                and create lasting impact.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
