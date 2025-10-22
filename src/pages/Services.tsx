@@ -12,68 +12,68 @@ const Services = () => {
   const services = [
     {
       icon: Code,
-      title: "Product Engineering",
-      description: "End-to-end product development from ideation to launch, with focus on scalability and performance.",
+      title: "Custom Software Development",
+      description: "End-to-end custom software solutions and product engineering from ideation to launch, with focus on scalability and performance.",
       features: [
-        "Full-stack development",
+        "Full-stack web development",
         "Microservices architecture",
-        "API design & integration",
-        "Database optimization",
+        "RESTful API design & integration",
+        "Database optimization & design",
       ],
     },
     {
       icon: Palette,
-      title: "UI/UX Design",
-      description: "Creating intuitive, beautiful interfaces that users love, backed by research and best practices.",
+      title: "Website Design & Mobile App Design",
+      description: "Professional website design and development, mobile app design services creating intuitive, beautiful interfaces backed by UX research.",
       features: [
         "User research & personas",
-        "Wireframing & prototyping",
-        "Design systems",
-        "Usability testing",
+        "Responsive web design",
+        "Mobile app UI/UX design",
+        "Design systems & prototyping",
       ],
     },
     {
       icon: Brain,
-      title: "AI-Powered Solutions",
-      description: "Leveraging artificial intelligence to build intelligent systems that automate and optimize.",
+      title: "AI Software Development & Automation",
+      description: "Expert AI software development and AI automation services leveraging artificial intelligence to build intelligent systems.",
       features: [
-        "Machine learning models",
+        "Machine learning solutions",
+        "AI automation services",
         "Natural language processing",
-        "Computer vision",
-        "Predictive analytics",
+        "Predictive analytics & AI tools",
       ],
     },
     {
       icon: Smartphone,
-      title: "Web & Mobile App Development",
-      description: "Building responsive, performant applications for web and mobile platforms that scale.",
+      title: "Web & Mobile App Development Services",
+      description: "Professional web development agency and app development company building responsive, high-performance applications.",
       features: [
-        "Progressive web apps",
-        "Native iOS & Android",
-        "Cross-platform solutions",
-        "Real-time features",
+        "Progressive web apps (PWA)",
+        "Native iOS & Android apps",
+        "React Native & Flutter",
+        "Real-time web applications",
       ],
     },
     {
       icon: Cloud,
-      title: "Cloud & DevOps",
-      description: "Infrastructure setup, CI/CD pipelines, and cloud optimization for reliable deployments.",
+      title: "SaaS Solutions & Cloud Services",
+      description: "SaaS platform development, cloud infrastructure setup, CI/CD pipelines, and cloud optimization services.",
       features: [
-        "AWS, Azure, GCP",
-        "Container orchestration",
-        "Automated testing",
-        "Performance monitoring",
+        "SaaS application development",
+        "AWS, Azure, Google Cloud",
+        "Kubernetes & Docker",
+        "DevOps & CI/CD automation",
       ],
     },
     {
       icon: TrendingUp,
-      title: "Digital Transformation Consulting",
-      description: "Strategic guidance to help businesses modernize and leverage technology effectively.",
+      title: "Software Consulting & MVP Development",
+      description: "Expert software consulting, MVP development services, and startup product development guidance for businesses.",
       features: [
-        "Technology roadmapping",
-        "Legacy system migration",
-        "Process automation",
-        "Change management",
+        "MVP development for startups",
+        "Technology consulting",
+        "Product strategy & roadmapping",
+        "Digital transformation consulting",
       ],
     },
   ];
@@ -102,11 +102,13 @@ const Services = () => {
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in">
           <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
-            Our <span className="text-gradient">Services</span>
+            Digital Services & <span className="text-gradient">Software Solutions</span>
           </h1>
           <p className="text-xl text-foreground/80 max-w-3xl mx-auto leading-relaxed">
-            From concept to code—we provide comprehensive software development services that transform 
-            your ideas into scalable, high-performance digital products.
+            Finitix offers comprehensive <strong>web development</strong>, <strong>mobile app development</strong>, 
+            <strong>AI software development</strong>, and <strong>software consulting services</strong>. As a leading 
+            <strong> digital services company</strong>, we transform your ideas into scalable, high-performance digital products 
+            that drive business growth and innovation.
           </p>
         </div>
 
@@ -114,15 +116,16 @@ const Services = () => {
         <div className="mb-20 animate-scale-in">
           <img
             src={servicesWorkspace}
-            alt="Professional Development Workspace"
+            alt="Finitix professional development workspace - Web development agency and app development company services"
             className="rounded-2xl shadow-glow-purple w-full h-auto max-h-[500px] object-cover"
+            loading="eager"
           />
         </div>
 
         {/* Services Grid */}
-        <section className="mb-20">
+        <section className="mb-20" aria-label="Our digital services">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-12 text-center">
-            What <span className="text-gradient">We Offer</span>
+            Comprehensive <span className="text-gradient">Digital Services</span> for Your Business
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => {
@@ -157,9 +160,9 @@ const Services = () => {
         </section>
 
         {/* Technology Stack */}
-        <section className="mb-20 bg-card rounded-2xl p-12">
+        <section className="mb-20 bg-card rounded-2xl p-12" aria-label="Technology stack">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-12 text-center">
-            Our <span className="text-gradient">Technology Stack</span>
+            Modern <span className="text-gradient">Technology Stack</span> for Digital Solutions
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {Object.entries(techStack).map(([category, technologies], index) => (
@@ -187,12 +190,13 @@ const Services = () => {
         </section>
 
         {/* Industries We Serve */}
-        <section className="mb-20">
+        <section className="mb-20" aria-label="Industries we serve">
           <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-center">
             Industries <span className="text-gradient">We Serve</span>
           </h2>
           <p className="text-center text-foreground/80 mb-12 max-w-2xl mx-auto">
-            Our expertise spans across multiple sectors, delivering tailored solutions for diverse business needs
+            As a versatile <strong>software solutions provider</strong>, our <strong>custom software solutions</strong> expertise 
+            spans FinTech, HealthTech, E-Commerce, SaaS, and Enterprise sectors, delivering tailored digital services for diverse business needs.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {industries.map((industry, index) => (
@@ -211,15 +215,16 @@ const Services = () => {
         </section>
 
         {/* Process & Methodology */}
-        <section className="mb-20">
+        <section className="mb-20" aria-label="Development methodology">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
               <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-                Our <span className="text-gradient">Methodology</span>
+                Agile <span className="text-gradient">Development Methodology</span>
               </h2>
               <p className="text-lg text-foreground/80 mb-6 leading-relaxed">
-                We follow industry best practices and agile methodologies to ensure your project is delivered 
-                on time, within budget, and exceeds expectations.
+                Our <strong>web development agency</strong> and <strong>app development company</strong> follows agile methodologies, 
+                industry best practices, and product-first principles to ensure your <strong>software development</strong> project is 
+                delivered on time, within budget, and exceeds expectations.
               </p>
               <div className="space-y-4">
                 <Card className="p-4 bg-card border-border/50">
@@ -245,22 +250,24 @@ const Services = () => {
             <div className="animate-scale-in" style={{ animationDelay: "0.2s" }}>
               <img
                 src={dataAnalytics}
-                alt="Development Methodology"
+                alt="Finitix agile development methodology - Software consulting and custom software solutions process"
                 className="rounded-2xl shadow-glow-purple w-full h-auto"
+                loading="lazy"
               />
             </div>
           </div>
         </section>
 
         {/* Values Section */}
-        <section className="bg-gradient-glow rounded-2xl p-12 mb-12 border border-primary/20 animate-fade-in">
+        <section className="bg-gradient-glow rounded-2xl p-12 mb-12 border border-primary/20 animate-fade-in" aria-label="Our values">
           <div className="text-center max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6 text-gradient">
               "Your Idea. Your Power. Your Future."
             </h2>
             <p className="text-lg text-foreground/80 mb-8">
-              We're not just service providers—we're your technology partners. Your success is our success, 
-              and we're committed to delivering solutions that drive real business value.
+              As your trusted <strong>digital services company</strong> and <strong>software solutions provider</strong>, we're committed 
+              to delivering <strong>custom software solutions</strong>, <strong>web applications</strong>, and <strong>mobile apps</strong> 
+              that drive real business value, innovation, and competitive advantage for startups and enterprises.
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-lg">
               <span className="px-6 py-3 bg-card rounded-full border border-primary/30">🤝 Collaboration</span>
@@ -274,10 +281,12 @@ const Services = () => {
         {/* CTA */}
         <div className="text-center animate-fade-in">
           <h2 className="text-2xl md:text-3xl font-heading font-bold mb-6">
-            Ready to Build Something Amazing?
+            Ready to Start Your Digital Transformation?
           </h2>
           <p className="text-foreground/80 mb-8 max-w-2xl mx-auto">
-            Let's discuss your project requirements and explore how our services can help you achieve your goals.
+            Contact our <strong>web development agency</strong> and <strong>app development company</strong> to discuss your 
+            <strong>software development</strong> needs. We offer free consultations for <strong>MVP development</strong>, 
+            <strong>SaaS solutions</strong>, and <strong>custom software solutions</strong>.
           </p>
           <Button
             size="lg"

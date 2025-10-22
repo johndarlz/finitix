@@ -35,25 +35,25 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section - Split Layout */}
-      <section className="min-h-screen flex items-center pt-24 pb-12">
+      <section className="min-h-screen flex items-center pt-24 pb-12" aria-label="Hero section">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Side - Text Content */}
             <div className="animate-fade-in">
               <h1 className="text-6xl md:text-7xl lg:text-8xl font-heading font-bold mb-4 leading-tight">
-                <span className="text-gradient">FINITIX</span>
+                <span className="text-gradient">Finitix</span> - Digital Services Platform
               </h1>
               
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-8 leading-tight">
-                Transforming Ideas Into
-                <span className="text-gradient"> Digital Reality</span>
+                Expert Web Development Agency & App Development Company
               </h2>
               
               <p className="text-xl text-foreground/80 mb-8 leading-relaxed">
-                We are a product-based software company dedicated to building innovative technology 
-                solutions that solve real-world problems. From startups to enterprises, we turn 
-                visionary ideas into scalable, high-performance digital products that drive growth 
-                and create lasting impact.
+                Finitix is a friendly <strong>digital services company</strong> specializing in <strong>web development</strong>, 
+                <strong> mobile app development</strong>, <strong>AI software development</strong>, and <strong>MVP development services</strong>. 
+                We help startups, businesses, and entrepreneurs transform ideas into scalable, high-performance digital products. 
+                As a leading <strong>software solutions provider</strong>, we deliver custom software solutions, SaaS platforms, 
+                and AI automation services that drive growth and innovation.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -95,8 +95,9 @@ const Home = () => {
               <div className="relative">
                 <img
                   src={heroInnovation}
-                  alt="Innovation and Technology"
+                  alt="Finitix digital services platform - Web development, app development, and AI solutions for startups and businesses"
                   className="rounded-2xl shadow-glow-purple w-full h-auto"
+                  loading="eager"
                 />
                 <div className="absolute inset-0 bg-gradient-primary opacity-10 rounded-2xl" />
               </div>
@@ -107,17 +108,18 @@ const Home = () => {
 
 
       {/* Who We Are */}
-      <section className="py-20">
+      <section className="py-20" aria-label="About Finitix">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center animate-fade-in mb-12">
             <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6">
-              Who <span className="text-gradient">We Are</span>
+              Leading <span className="text-gradient">Digital Services Company</span>
             </h2>
             <p className="text-lg text-foreground/80 leading-relaxed">
-              Finitix is more than just a software company. We are a team of passionate innovators, 
-              designers, and developers committed to creating digital solutions that inspire, empower, 
-              and transform businesses. Our mission is simple: turn your vision into reality through 
-              cutting-edge technology and unwavering dedication to excellence.
+              Finitix is a <strong>product-first software company</strong> and <strong>web development agency</strong> dedicated to 
+              delivering exceptional digital services. Our team of expert developers, designers, and strategists specializes in 
+              <strong>website design and development</strong>, <strong>mobile app design</strong>, <strong>AI automation services</strong>, 
+              and <strong>software consulting</strong>. We partner with startups, small businesses, and enterprises to create 
+              innovative technology solutions that solve real-world problems and drive measurable business results.
             </p>
           </div>
 
@@ -125,25 +127,28 @@ const Home = () => {
             <div className="animate-scale-in">
               <img
                 src={teamCollaboration}
-                alt="Team Collaboration"
+                alt="Finitix team collaboration - Expert software developers and designers working on digital solutions"
                 className="rounded-2xl shadow-glow w-full h-auto"
+                loading="lazy"
               />
             </div>
             <div className="space-y-6 animate-fade-in" style={{ animationDelay: "0.2s" }}>
               <Card className="p-6 bg-card border-border/50 hover:border-primary/50 transition-smooth">
-                <h3 className="text-xl font-heading font-semibold mb-3 text-gradient">Our Approach</h3>
+                <h3 className="text-xl font-heading font-semibold mb-3 text-gradient">Product-First Development Approach</h3>
                 <p className="text-foreground/80">
-                  We believe in a collaborative, transparent approach. Every project begins with deep 
-                  understanding of your business goals, followed by strategic planning, agile development, 
-                  and continuous improvement.
+                  As a <strong>startup product development</strong> specialist, we follow agile methodologies and 
+                  product-first principles. Our <strong>custom software solutions</strong> process includes discovery, 
+                  strategic planning, rapid prototyping, iterative development, and continuous optimization to ensure 
+                  your digital product achieves market success.
                 </p>
               </Card>
               <Card className="p-6 bg-card border-border/50 hover:border-primary/50 transition-smooth">
-                <h3 className="text-xl font-heading font-semibold mb-3 text-gradient">Our Commitment</h3>
+                <h3 className="text-xl font-heading font-semibold mb-3 text-gradient">Enterprise-Grade Quality Standards</h3>
                 <p className="text-foreground/80">
-                  Quality isn't just a goal—it's our standard. We deliver enterprise-grade solutions 
-                  with clean code, comprehensive documentation, and robust testing, ensuring your product 
-                  scales effortlessly as your business grows.
+                  Our <strong>software solutions provider</strong> team delivers enterprise-grade quality with ISO 27001 
+                  certified security, 99.9% uptime SLA, and comprehensive testing. Every <strong>web application</strong>, 
+                  <strong>mobile app</strong>, or <strong>SaaS solution</strong> we build follows industry best practices, 
+                  ensuring scalability, performance, and long-term maintainability.
                 </p>
               </Card>
             </div>
@@ -152,13 +157,14 @@ const Home = () => {
       </section>
 
       {/* Our Strengths */}
-      <section className="py-20 bg-card">
+      <section className="py-20 bg-card" aria-label="Why choose Finitix">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-5xl font-heading font-bold text-center mb-4">
-            Why Choose <span className="text-gradient">FINITIX</span>
+            Why Choose <span className="text-gradient">Finitix</span> as Your Digital Services Partner
           </h2>
           <p className="text-center text-foreground/80 mb-12 max-w-2xl mx-auto">
-            We combine technical excellence with business acumen to deliver solutions that don't just work—they excel.
+            As a leading <strong>app development company</strong> and <strong>web development agency</strong>, we combine 
+            technical excellence with business strategy to deliver digital solutions that drive growth, innovation, and competitive advantage.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {strengths.map((strength, index) => {
@@ -188,14 +194,15 @@ const Home = () => {
       </section>
 
       {/* Our Process */}
-      <section className="py-20">
+      <section className="py-20" aria-label="Development process">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-5xl font-heading font-bold mb-4">
-              Our <span className="text-gradient">Development Process</span>
+              Our <span className="text-gradient">Software Development Process</span>
             </h2>
             <p className="text-foreground/80 max-w-2xl mx-auto">
-              A proven methodology that ensures success from concept to launch
+              Our proven <strong>MVP development</strong> and <strong>software consulting</strong> methodology ensures 
+              successful delivery from concept to launch, with transparent communication and agile iteration at every stage.
             </p>
           </div>
 
@@ -221,16 +228,17 @@ const Home = () => {
 
 
       {/* Innovation Hub Section */}
-      <section className="py-20 bg-card">
+      <section className="py-20 bg-card" aria-label="Innovation Hub">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center animate-fade-in mb-12">
             <h2 className="text-3xl md:text-5xl font-heading font-bold mb-6">
-              Join Our <span className="text-gradient">Innovation Hub</span>
+              Join Our <span className="text-gradient">Innovation Hub</span> for Startups
             </h2>
             <p className="text-lg text-foreground/80 leading-relaxed mb-8">
-              The Innovation Hub is where visionaries, startups, and enterprises come together to collaborate, 
-              innovate, and bring groundbreaking ideas to life. Whether you're looking for mentorship, technical 
-              expertise, investment opportunities, or strategic partnerships, we're here to help you succeed.
+              The Finitix Innovation Hub connects startups, entrepreneurs, and businesses with expert <strong>software development</strong> 
+              resources, mentorship, and strategic partnerships. Access our network of developers, designers, and business strategists 
+              to accelerate your <strong>startup product development</strong> journey. We offer technical expertise in <strong>AI software development</strong>, 
+              <strong>SaaS solutions</strong>, and <strong>custom software solutions</strong> to help you build, launch, and scale innovative digital products.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
